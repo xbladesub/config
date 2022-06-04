@@ -73,7 +73,7 @@ roi() {
 }
 
 iBrew() {
-	roi /Users/lebje/homebrew/bin/brew $@
+	roi /Users/nshv/homebrew/bin/brew $@
 }
 
 # Aliases
@@ -96,7 +96,7 @@ alias sbdr="swift build -c debug && swift build -c release"
 # fpath
 
 fpath=($HOME/.zsh $fpath)
-fpath=(/Users/lebje/homebrew/share/zsh/site-functions/ $fpath)
+fpath=(/Users/nshv/homebrew/share/zsh/site-functions/ $fpath)
 fpath=($HOME/.zsh/completion $fpath)
 
 export PATH="/usr/local/opt/m4/bin:$PATH"
@@ -104,10 +104,10 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 export PATH="/usr/local/opt/python@3.9/bin:$PATH"
 #export PATH="/usr/local/opt/llvm/bin:$PATH"
-export PATH="/Users/lebje/homebrew/bin:$PATH"
-export PATH="/Users/lebje/homebrew/opt/icu4c/bin:$PATH"
-export PATH="/Users/lebje/homebrew/opt/icu4c/sbin:$PATH"
-#export PATH="/Users/lebje/homebrew/opt/llvm/bin:$PATH"
+export PATH="/Users/nshv/homebrew/bin:$PATH"
+export PATH="/Users/nshv/homebrew/opt/icu4c/bin:$PATH"
+export PATH="/Users/nshv/homebrew/opt/icu4c/sbin:$PATH"
+#export PATH="/Users/nshv/homebrew/opt/llvm/bin:$PATH"
 export PATH="/usr/local/lib/python3.9/site-packages/:$PATH"
 export PATH="/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"
 export PATH="/usr/local/opt/binutils/bin:$PATH"
@@ -119,13 +119,13 @@ export EDITOR="nvim"
 
 export GPG_TTY=$(tty)
 
-export LDFLAGS="-L/Users/lebje/homebrew/lib"
-export CPPFLAGS="-I/Users/lebje/homebrew/include"
-export CFLAGS="-I/Users/lebje/homebrew/include"
+export LDFLAGS="-L/Users/nshv/homebrew/lib"
+export CPPFLAGS="-I/Users/nshv/homebrew/include"
+export CFLAGS="-I/Users/nshv/homebrew/include"
 
-export CPATH="/usr/local/include:/Users/lebje/homebrew/include"
-export C_INCLUDE_PATH="/usr/local/include:/Users/lebje/homebrew/include"
-export LIBRARY_PATH="/usr/local/lib:/Users/lebje/homebrew/lib"
+export CPATH="/usr/local/include:/Users/nshv/homebrew/include"
+export C_INCLUDE_PATH="/usr/local/include:/Users/nshv/homebrew/include"
+export LIBRARY_PATH="/usr/local/lib:/Users/nshv/homebrew/lib"
 
 export FZF_DEFAULT_COMMAND="fd"
 
@@ -160,7 +160,7 @@ setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 export SAVEHIST=$HISTSIZE
 
 
-alias luamake=/Users/lebje/luamake/luamake
+alias luamake=/Users/nshv/luamake/luamake
 
 eval "$(atuin init zsh)"
 
