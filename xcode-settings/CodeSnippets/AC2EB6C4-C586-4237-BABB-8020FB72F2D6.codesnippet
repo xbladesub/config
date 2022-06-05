@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string></string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>ClassImplementation</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>import UIKit
+
+// MARK: - ⛩ Type Definitions
+
+fileprivate typealias CellType = &lt;#AnyClass#&gt;
+
+class &lt;#ClassName#&gt;: UICollectionView {
+    
+    // MARK: - 🔶 Private Properties
+    
+    private let layout: UICollectionViewFlowLayout = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = &lt;#UICollectionView.ScrollDirection#&gt;
+        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        flowLayout.minimumInteritemSpacing = 0
+        flowLayout.minimumLineSpacing = 0
+        return flowLayout
+    }()
+    
+    // MARK: - 👶 Init
+    
+    init() {
+        super.init(frame: .zero, collectionViewLayout: self.layout)
+        
+        delegate = self
+        dataSource = self
+        
+        register(CellType.self, forCellWithReuseIdentifier: CellType.reuseId)
+        
+        backgroundColor = .clear
+        alwaysBounceVertical = &lt;#Bool#&gt;
+        alwaysBounceHorizontal = &lt;#Bool#&gt;
+        showsVerticalScrollIndicator = &lt;#Bool#&gt;
+        showsHorizontalScrollIndicator = &lt;#Bool#&gt;
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: - UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
+
+extension &lt;#ClassName#&gt;: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -&gt; Int {
+        &lt;#code#&gt;
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -&gt; UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellType.reuseId, for: indexPath) as! CellType
+        return cell
+    }
+}
+
+
+
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>AC2EB6C4-C586-4237-BABB-8020FB72F2D6</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Base UICollectionVIew</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>CV</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

@@ -38,7 +38,10 @@ brew "zoxide"
 
 # casks a-z
 
+cask "adguard"
+cask "discord"
 cask "eul"
+cask "gitkraken"
 cask "iterm2"
 cask "kap"
 cask "karabiner-elements"
@@ -47,6 +50,5 @@ cask "proxyman"
 cask "rectangle"
 cask "sf-symbols"
 cask "visual-studio-code"
-
-
+cask "transmission"
 cask "wireshark"

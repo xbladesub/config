@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string></string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>ClassImplementation</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>import UIKit
+
+// MARK: - ⛩ Type Definitions
+
+fileprivate typealias CellType = &lt;#AnyClass#&gt;
+
+class &lt;#ClassName#&gt;: UITableView {
+    
+    // MARK: - 👶 Init
+    
+    init() {
+        super.init(frame: .zero, style: .plain)
+        
+        delegate = self
+        dataSource = self
+        
+        register(CellType.self, forCellReuseIdentifier: CellType.reuseId)
+        
+        backgroundColor = &lt;#UIColor#&gt;
+        separatorStyle = &lt;#UITableViewCell.SeparatorStyle#&gt;
+        separatorInset = &lt;#UIEdgeInsets#&gt;
+        
+        rowHeight = &lt;#CGFloat#&gt;
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: - UITableViewDataSource, UITableViewDelegate
+
+extension &lt;#ClassName#&gt;: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+        &lt;#Int#&gt;
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -&gt; UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellType.reuseId, for: indexPath) as! CellType
+        return cell
+    }
+}
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>4F062994-E81A-404A-995F-6256AAB46F58</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Base UITableView</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>TV</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

@@ -77,21 +77,25 @@ iBrew() {
 }
 
 # Aliases
-alias ls="exa -lah --git --icons"
-alias lsl="ls -mugU --octal-permissions"
+# alias ls="exa -lah --git --icons"
+# alias lsl="ls -mugU --octal-permissions"
 alias weather="curl wttr.in"
 alias icloud="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/"
-alias nvim-init="nvim ~/config/nvim/init.lua"
-alias nvim-config="nvim ~/.config/nvim/lua/settings.lua"
-alias nvim-plugins="nvim ~/.config/nvim/lua/plugins.lua"
-alias nvim-pluginsS="nvim ~/.config/nvim/lua/pluginsSetup.lua"
-alias nvim-cNvimDAP="nvim ~/.config/nvim/lua/nvimDapSetup.lua"
-alias nvim-cCocNvim="nvim ~/.config/nvim/lua/cocNvimSetup.lua"
+# alias nvim-init="nvim ~/config/nvim/init.lua"
+# alias nvim-config="nvim ~/.config/nvim/lua/settings.lua"
+# alias nvim-plugins="nvim ~/.config/nvim/lua/plugins.lua"
+# alias nvim-pluginsS="nvim ~/.config/nvim/lua/pluginsSetup.lua"
+# alias nvim-cNvimDAP="nvim ~/.config/nvim/lua/nvimDapSetup.lua"
+# alias nvim-cCocNvim="nvim ~/.config/nvim/lua/cocNvimSetup.lua
 
 alias bat="bat --pager=\"less -FRS\" --theme \"TwoDark\""
 alias ts="tree-sitter"
 alias sba="swift build --arch x86_64 && swift build --arch arm64"
 alias sbdr="swift build -c debug && swift build -c release"
+alias repos="cd $HOME/Repos/"
+alias vpnify="/Applications/Vpnify.app/Contents/MacOS/CLI/vpnify"
+alias vc="vpnify connect -c hkg"
+alias vd= "vpnify disconnect"
 
 # fpath
 
@@ -112,8 +116,11 @@ export PATH="/usr/local/lib/python3.9/site-packages/:$PATH"
 export PATH="/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"
 export PATH="/usr/local/opt/binutils/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
+
 export PATH="$HOME/Programs/sourcekit-lsp/.build/release/sourcekit-lsp:$PATH"
 export PATH="$HOME/tree-sitter/target/release/:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="/Users/nshv/Library/Python/3.8/bin:$PATH"
 
 export EDITOR="nvim"
 

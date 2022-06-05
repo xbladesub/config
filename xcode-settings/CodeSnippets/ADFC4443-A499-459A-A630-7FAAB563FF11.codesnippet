@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string></string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>ClassImplementation</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>import UIKit
+
+class &lt;#ClassName#&gt;: UIViewController {
+    
+    // MARK: - ⭕️ Life Cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureUI()
+    }
+    
+    deinit {
+        print("\(Self.self) is deinitialized")
+    }
+}
+
+// MARK: - 💠 Private Interface
+
+private extension &lt;#ClassName#&gt; {
+    
+    func configureUI() {
+        view.backgroundColor = &lt;#UIColor#&gt;
+        setupNavBar()
+        
+        setupConstraints()
+    }
+    
+    func setupNavBar() {
+        
+    }
+    
+    func setupConstraints() {
+        
+    }
+}
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>ADFC4443-A499-459A-A630-7FAAB563FF11</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Base UIViewController</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>VC</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>
