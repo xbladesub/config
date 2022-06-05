@@ -1,65 +1,170 @@
--- -[[
--- lvim is the global options object
---
--- Linters should be
--- filled in as strings with either
--- a global executable or a path to
--- an executable
--- ]]
--- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
+local settings = require("settings")
+settings.setOptions()
+settings.setKeymaps()
 
--- general
+lvim.builtin.dap.active = true
+local U = require("utilities")
 
--- vim.cmd [[inoremap <esc>   <NOP>]]
-vim.cmd [[inoremap <Left>  <NOP>]]
-vim.cmd [[inoremap <Right> <NOP>]]
-vim.cmd [[inoremap <Up>    <NOP>]]
-vim.cmd [[inoremap <Down>  <NOP>]]
-vim.cmd [[nnoremap <Left>  <NOP>]]
-vim.cmd [[nnoremap <Right> <NOP>]]
-vim.cmd [[nnoremap <Up>    <NOP>]]
-vim.cmd [[nnoremap <Down>  <NOP>]]
-vim.cmd [[vnoremap <Down>  <NOP>]]
-vim.cmd [[vnoremap <Left>  <NOP>]]
-vim.cmd [[vnoremap <Right> <NOP>]]
-vim.cmd [[vnoremap <Up>    <NOP>]]
--- vim.cmd [[vnoremap <esc>   <NOP>]]
-vim.cmd [[nnoremap <space><cr> :nohlsearch<cr>]]
+lvim.builtin.dap = {
+	active = false,
+	on_config_done = nil,
+	breakpoint = {
+		text = "",
+		texthl = "lspdiagnosticssignerror",
+		linehl = "",
+		numhl = "",
+	},
+	breakpoint_rejected = {
+		text = "",
+		texthl = "lspdiagnosticssignhint",
+		linehl = "",
+		numhl = "",
+	},
+	stopped = {
+		text = "",
+		texthl = "lspdiagnosticssigninformation",
+		linehl = "diagnosticunderlineinfo",
+		numhl = "lspdiagnosticssigninformation",
+	},
+}
 
+local dap = require "dap"
+dap.set_log_level('TRACE')
+
+if lvim.use_icons then
+	vim.fn.sign_define("DapBreakpoint", lvim.builtin.dap.breakpoint)
+	vim.fn.sign_define("DapBreakpointRejected", lvim.builtin.dap.breakpoint_rejected)
+	vim.fn.sign_define("DapStopped", lvim.builtin.dap.stopped)
+end
+
+dap.defaults.fallback.terminal_win_cmd = "50vsplit new"
+
+lvim.builtin.which_key.mappings["d"] = {
+	name = "Debug",
+	t = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },
+	b = { "<cmd>lua require'dap'.step_back()<cr>", "Step Back" },
+	c = { "<cmd>lua require'dap'.continue()<cr>", "Continue" },
+	C = { "<cmd>lua require'dap'.run_to_cursor()<cr>", "Run To Cursor" },
+	d = { "<cmd>lua require'dap'.disconnect()<cr>", "Disconnect" },
+	g = { "<cmd>lua require'dap'.session()<cr>", "Get Session" },
+	i = { "<cmd>lua require'dap'.step_into()<cr>", "Step Into" },
+	o = { "<cmd>lua require'dap'.step_over()<cr>", "Step Over" },
+	u = { "<cmd>lua require'dap'.step_out()<cr>", "Step Out" },
+	p = { "<cmd>lua require'dap'.pause()<cr>", "Pause" },
+	r = { "<cmd>lua require'dap'.repl.toggle()<cr>", "Toggle Repl" },
+	s = { "<cmd>lua require'dap'.continue()<cr>", "Start" },
+	q = { "<cmd>lua require'dap'.close()<cr>", "Quit" },
+}
+
+if lvim.builtin.dap.on_config_done then
+	lvim.builtin.dap.on_config_done(dap)
+end
+
+local libLLDB = require("settings").libLLDB
+-- dap.adapters.codelldb = {
+-- 	type = 'server',
+-- 	host = '127.0.0.1',
+-- 	port = 13000 -- 💀 Use the port printed out or specified with `--port`
+-- }
+
+local cmd = "/Users/nshv/.vscode/extensions/vadimcn.vscode-lldb-1.7.0/adapter/codelldb"
+
+dap.adapters.codelldb = function(on_adapter)
+	-- This asks the system for a free port
+	local tcp = vim.loop.new_tcp()
+	tcp:bind("127.0.0.1", 0)
+	local port = tcp:getsockname().port
+	tcp:shutdown()
+	tcp:close()
+
+	-- Start codelldb with the port
+	local stdout = vim.loop.new_pipe(false)
+	local stderr = vim.loop.new_pipe(false)
+	local opts = {
+		stdio = { nil, stdout, stderr },
+		args = { "--port", tostring(port) }
+	}
+	local handle
+	local pid_or_err
+	handle, pid_or_err = vim.loop.spawn(
+		cmd,
+		opts,
+		function(code)
+			stdout:close()
+			stderr:close()
+			handle:close()
+			if code ~= 0 then
+				print("codelldb exited with code", code)
+			end
+		end
+	)
+	if not handle then
+		vim.notify("Error running codelldb: " .. tostring(pid_or_err), vim.log.levels.ERROR)
+		stdout:close()
+		stderr:close()
+		return
+	end
+	vim.notify("codelldb started. pid=" .. pid_or_err)
+	stderr:read_start(
+		function(err, chunk)
+			assert(not err, err)
+			if chunk then
+				vim.schedule(
+					function()
+						require("dap.repl").append(chunk)
+					end
+				)
+			end
+		end
+	)
+	local adapter = {
+		type = "server",
+		host = "127.0.0.1",
+		port = port
+	}
+	-- 💀
+	-- Wait for codelldb to get ready and start listening before telling nvim-dap to connect
+	-- If you get connect errors, try to increase 500 to a higher value, or check the stderr (Open the REPL)
+	vim.defer_fn(
+		function()
+			on_adapter(adapter)
+		end,
+		800
+	)
+end
+
+-- dap.adapters.lldb = {
+-- 	type = 'executable',
+-- 	command = '/opt/homebrew/Cellar/llvm/13.0.1_1/bin/lldb-vscode', -- adjust as needed, must be absolute path
+-- 	name = 'lldb'
+-- }
+
+dap.configurations.swift = {
+	{
+		type = "codelldb",
+		request = "launch",
+		name = "DEBUG",
+		program = "${workspaceFolder}/.build/arm64-apple-macosx/debug/eth_swift",
+		cwd = "${workspaceFolder}",
+		liblldb = libLLDB,
+		stopOnEntry = false,
+	},
+}
+
+U.autocmd("FileType", {
+	pattern = "dap-repl",
+	callback = function()
+		require("dap.ext.autocompl").attach()
+	end,
+})
+
+--------------------------------------------------
 
 lvim.log.level = "warn"
 lvim.format_on_save = true
 lvim.colorscheme = "tokyonight"
--- to disable icons and use a minimalist setup, uncomment the following
--- lvim.use_icons = false
-
--- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
--- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
--- nmap('<leader>s', ":lua require('auto-session').SaveSession(require('auto-session').get_root_dir() .. vim.fn.input('SessionName > '))
--- <CR>")
--- unmap a default keymapping
--- lvim.keys.normal_mode["<C-Up>"] = false
--- edit a default keymappin
-
--- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
--- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
--- local _, actions = pcall(require, "telescope.actions")
--- lvim.builtin.telescope.defaults.mappings = {
---   -- for input mode
---   i = {
---     ["<C-j>"] = actions.move_selection_next,
---     ["<C-k>"] = actions.move_selection_previous,
---     ["<C-n>"] = actions.cycle_history_next,
---     ["<C-p>"] = actions.cycle_history_prev,
---   },
---   -- for normal mode
---   n = {
---     ["<C-j>"] = actions.move_selection_next,
---     ["<C-k>"] = actions.move_selection_previous,
---   },
--- }:
 
 -- Use which-key to add extra bindings with the leader-key prefix
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
@@ -102,71 +207,8 @@ vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000" }
 -- 	"Hide diff view"
 -- }
 
--- lvim.builtin.dap.active = true
--- lvim.builtin.which_key.mappings["d"] = {
---   name = "Debug",
---   t = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },
---   b = { "<cmd>lua require'dap'.step_back()<cr>", "Step Back" },
---   c = { "<cmd>lua require'dap'.continue()<cr>", "Continue" },
---   C = { "<cmd>lua require'dap'.run_to_cursor()<cr>", "Run To Cursor" },
---   d = { "<cmd>lua require'dap'.disconnect()<cr>", "Disconnect" },
---   g = { "<cmd>lua require'dap'.session()<cr>", "Get Session" },
---   i = { "<cmd>lua require'dap'.step_into()<cr>", "Step Into" },
---   o = { "<cmd>lua require'dap'.step_over()<cr>", "Step Over" },
---   u = { "<cmd>lua require'dap'.step_out()<cr>", "Step Out" },
---   p = { "<cmd>lua require'dap'.pause()<cr>", "Pause" },
---   r = { "<cmd>lua require'dap'.repl.toggle()<cr>", "Toggle Repl" },
---   s = { "<cmd>lua require'dap'.continue()<cr>", "Start" },
---   q = { "<cmd>lua require'dap'.close()<cr>", "Quit" },
--- }
 
--- local dap = require('dap')
--- dap.set_log_level('DEBUG')
--- dap.adapters.lldb = {
---   type = 'executable',
---   command = '/opt/homebrew/Cellar/llvm/13.0.1_1/bin/lldb-vscode', -- adjust as needed, must be absolute path
---   name = 'lldb'
--- }
-
--- dap.configurations.swift = {
---   {
---     name = 'Launch',
---     type = 'lldb',
---     request = 'launch',
---     program = function()
---       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
---     end,
---     cwd = '${workspaceFolder}',
---     stopOnEntry = false,
---     args = { "xcrun swift build -c release --arch arm64" },
-
---     -- ??
---     -- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
---     --
---     --    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
---     --
---     -- Otherwise you might get the following error:
---     --
---     --    Error on launch: Failed to attach to the target process
---     --
---     -- But you should be aware of the implications:
---     -- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
---     -- runInTerminal = false,
---   },
--- }
-
--- lvim.builtin.terminal.execs = { "lazygit", "<leader>gg", "LazyGit", "float" }
 lvim.builtin.terminal.open_mapping = [[<c-\>]]
--- lvim.builtin.which_key.presets = {
---   operators = false, -- adds help for operators like d, y, ...
---   motions = false, -- adds help for motions
---   text_objects = false, -- help for text objects triggered after entering an operator
---   windows = true, -- default bindings on <c-w>
---   nav = true, -- misc bindings to work with windows
---   z = true, -- bindings for folds, spelling and others prefixed with z
---   g = true,
--- }
--- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
@@ -198,13 +240,7 @@ lvim.builtin.treesitter.highlight.enabled = true
 
 -- generic LSP settings
 
--- ---@usage disable automatic installation of servers
--- lvim.lsp.automatic_servers_installation = false
-
--- ---configure a server manually. !!Requires `:LvimCacheReset` to take effect!!
--- ---see the full default list `:lua print(vim.inspect(lvim.lsp.automatic_configuration.skipped_servers))`
 local nvim_lsp = require 'lspconfig'
--- vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "solc" })
 nvim_lsp["clangd"].setup {}
 local opts = { autostart = true } -- check the lspconfig documentation for a list of all possible options
 -- local opts1 = { autostart = true } -- check the lspconfig documentation for a list of all possible options
@@ -212,46 +248,15 @@ require("lvim.lsp.manager").setup("sourcekit", opts)
 require("lvim.lsp.manager").setup("solidity_ls", opts)
 require("lvim.lsp.manager").setup("solc", opts)
 require("lvim.lsp.manager").setup("kotlin_language_server", opts)
--- require('lspconfig').solc.setup({
--- 	autostart = true,
--- 	cmd_env = {
--- 		PATH = '/usr/local/bin/'
--- 	}
 
--- })
--- -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
-	--   { command = "black", filetypes = { "python" } },
-	--   { command = "isort", filetypes = { "python" } },
 	{
-		-- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
 		command = "swiftformat",
-		---@usage arguments to pass to the formatter
-		-- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
-		-- extra_args = { "--print-with", "100" },
-		--     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
 		filetypes = { "swift" },
 	},
 }
 
--- -- set additional linters
--- local linters = require "lvim.lsp.null-ls.linters"
--- linters.setup {
---   { command = "flake8", filetypes = { "python" } },
---   {
---     -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
---     command = "shellcheck",
---     ---@usage arguments to pass to the formatter
---     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
---     extra_args = { "--severity", "warning" },
---   },
---   {
---     command = "codespell",
---     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
---     filetypes = { "javascript", "python" },
---   },
--- }
 
 -- Additional Plugins
 lvim.plugins = {
@@ -308,6 +313,83 @@ lvim.plugins = {
 		run = "./install.sh",
 		requires = "hrsh7th/nvim-cmp"
 	},
+	{
+		"Pocco81/dap-buddy.nvim",
+		branch = "dev",
+	},
+	{
+		"rcarriga/nvim-dap-ui",
+		requires = { "dap" }
+	},
+	{
+		"theHamsta/nvim-dap-virtual-text",
+	}
+}
+
+require("dapui").setup({
+	icons = { expanded = "▾", collapsed = "▸" },
+	mappings = {
+		-- Use a table to apply multiple mappings
+		expand = { "<CR>", "<2-LeftMouse>" },
+		open = "o",
+		remove = "d",
+		edit = "e",
+		repl = "r",
+		toggle = "t",
+	},
+	-- Expand lines larger than the window
+	-- Requires >= 0.7
+	expand_lines = vim.fn.has("nvim-0.7"),
+	sidebar = {
+		-- You can change the order of elements in the sidebar
+		elements = {
+			-- Provide as ID strings or tables with "id" and "size" keys
+			{
+				id = "scopes",
+				size = 0.25, -- Can be float or integer > 1
+			},
+			{ id = "breakpoints", size = 0.25 },
+			{ id = "stacks", size = 0.25 },
+			{ id = "watches", size = 00.25 },
+		},
+		size = 40,
+		position = "left", -- Can be "left", "right", "top", "bottom"
+	},
+	tray = {
+		elements = { "repl", "console" },
+		size = 10,
+		position = "bottom", -- Can be "left", "right", "top", "bottom"
+	},
+	floating = {
+		max_height = nil, -- These can be integers or a float between 0 and 1.
+		max_width = nil, -- Floats will be treated as percentage of your screen.
+		border = "single", -- Border style. Can be "single", "double" or "rounded"
+		mappings = {
+			close = { "q", "<Esc>" },
+		},
+	},
+	windows = { indent = 1 },
+	render = {
+		max_type_length = nil, -- Can be integer or nil.
+	}
+})
+
+require("nvim-dap-virtual-text").setup {
+	enabled = true, -- enable this plugin (the default)
+	enabled_commands = true, -- create commands DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, (DapVirtualTextForceRefresh for refreshing when debug adapter did not notify its termination)
+	highlight_changed_variables = true, -- highlight changed values with NvimDapVirtualTextChanged, else always NvimDapVirtualText
+	highlight_new_as_changed = false, -- highlight new variables in the same way as changed variables (if highlight_changed_variables)
+	show_stop_reason = true, -- show stop reason when stopped for exceptions
+	commented = false, -- prefix virtual text with comment string
+	only_first_definition = true, -- only show virtual text at first definition (if there are multiple)
+	all_references = false, -- show virtual text on all all references of the variable (not only definitions)
+	filter_references_pattern = '<module', -- filter references (not definitions) pattern when all_references is activated (Lua gmatch pattern, default filters out Python modules)
+	-- experimental features:
+	virt_text_pos = 'eol', -- position of virtual text, see `:h nvim_buf_set_extmark()`
+	all_frames = false, -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
+	virt_lines = false, -- show virtual lines instead of virtual text (will flicker!)
+	virt_text_win_col = nil -- position the virtual text at a fixed window column (starting from the first text column) ,
+	-- e.g. 80 to position at column 80, see `:h nvim_buf_set_extmark()`
 }
 
 require "surround".setup {
@@ -324,40 +406,6 @@ require "surround".setup {
 		},
 		prefix = "s"
 	}
-}
-
-require('onedark').setup {
-	-- Main options -
-	style = 'cool', -- Default theme style. Choose between 'dark', 'darker', 'cool   'deep', 'warm', 'warmer' and 'light'
-	transparent = false, -- Show/hide background
-	term_colors = true, -- Change terminal color as per the selected theme style
-	ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
-	cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
-	-- toggle theme style ---
-	toggle_style_key = '<leader>ts', -- Default keybinding to toggle
-	toggle_style_list = { 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light' }, -- List of styles to toggle between
-
-	-- Change code style ---
-	-- Options are italic, bold, underline, none
-	-- You can configure multiple style with comma seperated, For e.g., keywords = 'italic,bold'
-	code_style = {
-		comments = 'none',
-		keywords = 'none',
-		functions = 'none',
-		strings = 'none',
-		variables = 'none'
-	},
-
-	-- Custom Highlights --
-	colors = {}, -- Override default colors
-	highlights = {}, -- Override highlight groups
-
-	-- Plugins Config --
-	diagnostics = {
-		darker = true, -- darker colors for diagnostic
-		undercurl = true, -- use undercurl instead of underline for diagnostics
-		background = true, -- use background color for virtual text
-	},
 }
 
 local wilder = require('wilder')
@@ -417,26 +465,8 @@ wilder.set_option('renderer', wilder.renderer_mux({
 	substitute = wildmenu_renderer
 }))
 
-vim.opt.expandtab = false
-vim.opt.timeoutlen = 100
-vim.opt.tabstop = 4
--- local custom_gruvbox = require 'lualine.themes.gruvbox'
-
--- Change the background of lualine_c section for normal mode
--- custom_gruvbox.normal.c.bg = 'purple'
--- custom_gruvbox.normal.c.fg = 'cyan'
-
--- require('lualine').setup {
--- 	options = { theme = custom_gruvbox },
--- }
--- vim.highlight.create('Visual', { guifg = cyan, guibg = DarkSlateGray4 }, false)
-vim.cmd [[set shell=zsh]]
-vim.opt.cursorline = true
-vim.opt.relativenumber = true
-vim.opt.shiftwidth = 4
 lvim.builtin.project.patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "Package.swift", ".xcworkspace", ".xcodeproj" }
 lvim.builtin.project.show_hidden = true
--- lvim.builtin.lualine.style = "default"
 
 require("nvim-treesitter.configs").setup {
 	-- autopairs = { enable = true },
@@ -471,14 +501,10 @@ require 'swift_env'.setup {
 	}
 }
 
--- vim.opt.list = true
--- vim.opt.listchars:append("eol:↴")
 
 require("indent_blankline").setup {
 	show_current_context = true,
 	show_trailing_blankline_indent = false
-	-- show_current_context_start = true,
-	-- show_end_of_line = true,
 }
 
 vim.g.symbols_outline = {
@@ -551,16 +577,11 @@ require("telescope").load_extension("session-lens")
 require("telescope").load_extension('harpoon')
 require('session-lens').setup {
 	prompt_title = 'SESSIONS',
-	-- path_display = { 'shorten' },
-	-- theme_conf = { border = false },
-	-- previewer = false
 }
 
 vim.o.guifont = "JetBrainsMono Nerd Font Mono:h12"
 
 vim.g.neovide_transparency = 0.75
--- vim.g.neovide_cursor_animation_length = 0.03
--- vim.g.neovide_cursor_trail_size = 0.75
 vim.g.neovide_cursor_vfx_mode = "ripple"
 -- vim.g.neovide_remember_window_size = true
 -- vim.g.neovide_remember_window_position = true
@@ -571,14 +592,3 @@ lvim.builtin.nvimtree.setup.view.relativenumber = true
 if vim.bo.filetype == "swift" then
 	require 'swift_env'.attach()
 end
--- Autocommands (https://neovim.io/doc/user/autocmd.html)
--- lvim.autocommands.custom_groups = {
---   { "BufWinEnter", "*.lua", "setlocal ts=8 sw=8" },
--- }
-vim.cmd [[au VimEnter * highlight Visual guifg=cyan guibg=DarkSlateGray4 gui=none]]
-vim.cmd [[au VimEnter * highlight Search guibg=purple ]]
--- vim.cmd [[au VimEnter * highlight CursorLine cterm=underline guifg=none guibg=MediumPurple4 guisp=none]]
-
--- vim.cmd [[au VimEnter * highlight CursorLine  ctermbg=Yellow   guibg=yellow gui=bold]]
--- vim.cmd [[au VimEnter * highlight StatusLine guibg=purple ]]
-vim.cmd [[au VimEnter * highlight LineNr guifg=cyan3]]

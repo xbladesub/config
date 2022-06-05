@@ -122,6 +122,10 @@ export PATH="$HOME/tree-sitter/target/release/:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/Users/nshv/Library/Python/3.8/bin:$PATH"
 
+export PATH="/Users/nshv/.vscode/extensions/vadimcn.vscode-lldb-1.7.0/lldb/bin:$PATH"
+export PATH="/Users/nshv/.vscode/extensions/vadimcn.vscode-lldb-1.7.0/lldb/bin:$PATH"
+export PATH="/Users/nshv/.vscode/extensions/vadimcn.vscode-lldb-1.7.0/adapter:$PATH"
+
 export EDITOR="nvim"
 
 export GPG_TTY=$(tty)
