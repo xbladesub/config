@@ -95,7 +95,8 @@ alias sbdr="swift build -c debug && swift build -c release"
 alias repos="cd $HOME/Repos/"
 alias vpnify="/Applications/Vpnify.app/Contents/MacOS/CLI/vpnify"
 alias vc="vpnify connect -c hkg"
-alias vd= "vpnify disconnect"
+alias vd="vpnify disconnect"
+alias reload="exec zsh -1"
 
 # fpath
 
@@ -125,6 +126,7 @@ export PATH="/Users/nshv/Library/Python/3.8/bin:$PATH"
 export PATH="/Users/nshv/.vscode/extensions/vadimcn.vscode-lldb-1.7.0/lldb/bin:$PATH"
 export PATH="/Users/nshv/.vscode/extensions/vadimcn.vscode-lldb-1.7.0/lldb/bin:$PATH"
 export PATH="/Users/nshv/.vscode/extensions/vadimcn.vscode-lldb-1.7.0/adapter:$PATH"
+export PATH="/Users/nshv/Library/Android/sdk/platform-tools:$PATH"
 
 export EDITOR="nvim"
 

@@ -130,7 +130,10 @@ dap.configurations.swift = {
 		type = "codelldb",
 		request = "launch",
 		name = "DEBUG",
-		program = "${workspaceFolder}/.build/arm64-apple-macosx/debug/eth_swift",
+		-- program = "${workspaceFolder}/.build/arm64-apple-macosx/debug/" .. vim.fn.getcwd(),
+		program = function()
+			return "${workspaceFolder}/.build/arm64-apple-macosx/debug/" .. vim.fn.substitute(vim.fn.getcwd(), '^.*/', '', '')
+		end,
 		cwd = "${workspaceFolder}",
 		liblldb = libLLDB,
 		stopOnEntry = false,
