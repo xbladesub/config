@@ -2,11 +2,8 @@ local settings = require("settings")
 settings.setOptions()
 settings.setKeymaps()
 
-lvim.builtin.dap.active = true
-local U = require("utilities")
-
 lvim.builtin.dap = {
-	active = false,
+	active = true,
 	on_config_done = nil,
 	breakpoint = {
 		text = "",
@@ -61,11 +58,6 @@ if lvim.builtin.dap.on_config_done then
 end
 
 local libLLDB = require("settings").libLLDB
--- dap.adapters.codelldb = {
--- 	type = 'server',
--- 	host = '127.0.0.1',
--- 	port = 13000 -- 💀 Use the port printed out or specified with `--port`
--- }
 
 local cmd = "/Users/nshv/.vscode/extensions/vadimcn.vscode-lldb-1.7.0/adapter/codelldb"
 
@@ -133,12 +125,6 @@ dap.adapters.codelldb = function(on_adapter)
 	)
 end
 
--- dap.adapters.lldb = {
--- 	type = 'executable',
--- 	command = '/opt/homebrew/Cellar/llvm/13.0.1_1/bin/lldb-vscode', -- adjust as needed, must be absolute path
--- 	name = 'lldb'
--- }
-
 dap.configurations.swift = {
 	{
 		type = "codelldb",
@@ -150,13 +136,6 @@ dap.configurations.swift = {
 		stopOnEntry = false,
 	},
 }
-
-U.autocmd("FileType", {
-	pattern = "dap-repl",
-	callback = function()
-		require("dap.ext.autocompl").attach()
-	end,
-})
 
 --------------------------------------------------
 
@@ -243,12 +222,10 @@ lvim.builtin.treesitter.highlight.enabled = true
 local nvim_lsp = require 'lspconfig'
 nvim_lsp["clangd"].setup {}
 local opts = { autostart = true } -- check the lspconfig documentation for a list of all possible options
--- local opts1 = { autostart = true } -- check the lspconfig documentation for a list of all possible options
-require("lvim.lsp.manager").setup("sourcekit", opts)
 require("lvim.lsp.manager").setup("solidity_ls", opts)
 require("lvim.lsp.manager").setup("solc", opts)
 require("lvim.lsp.manager").setup("kotlin_language_server", opts)
-
+require("lvim.lsp.manager").setup("sourcekit", opts)
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
 	{

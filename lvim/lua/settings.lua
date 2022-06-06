@@ -14,7 +14,7 @@ local function libLLDBSetup()
 	local os = jit.os
 
 	if os == "OSX" then
-		local libLLDBPath = "/opt/homebrew/Cellar/llvm/13.0.1_1/lib/liblldb.13.0.1.dylib"
+		local libLLDBPath = "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB"
 		local libLLDBBetaPath = "/Applications/Xcode-beta.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB"
 
 		if vim.fn.filereadable(libLLDBPath) then
