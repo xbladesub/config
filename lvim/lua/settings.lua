@@ -87,6 +87,11 @@ function Settings.setKeymaps()
 	vim.cmd [[au VimEnter * highlight Visual guifg=cyan guibg=DarkSlateGray4 gui=none]]
 	vim.cmd [[au VimEnter * highlight Search guibg=purple ]]
 	vim.cmd [[au VimEnter * highlight LineNr guifg=cyan3]]
+	vim.cmd [[autocmd VimEnter,WinEnter * match Cursor /\%#./]]
+	-- vim.cmd [[au DiffAdd * highlight LineNr guifg=cyan3]]
+	-- vim.cmd [[au DiffChange * highlight LineNr guifg=cyan3]]
+	-- vim.cmd [[au DiffDelete * highlight LineNr guifg=red]]
+	-- vim.cmd [[au DiffText * highlight LineNr guifg=cyan3]]
 
 	-- Open a terminal in the current buffer.
 	vim.cmd([[cabbrev t terminal]])
