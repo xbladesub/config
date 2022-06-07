@@ -97,7 +97,7 @@ alias vpnify="/Applications/Vpnify.app/Contents/MacOS/CLI/vpnify"
 alias vc="vpnify connect -c hkg"
 alias vd="vpnify disconnect"
 alias reload="exec zsh -1"
-
+alias collage="convert +append"
 # fpath
 
 fpath=($HOME/.zsh $fpath)
@@ -117,7 +117,6 @@ export PATH="/usr/local/lib/python3.9/site-packages/:$PATH"
 export PATH="/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"
 export PATH="/usr/local/opt/binutils/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
-
 export PATH="$HOME/Programs/sourcekit-lsp/.build/release/sourcekit-lsp:$PATH"
 export PATH="$HOME/tree-sitter/target/release/:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
