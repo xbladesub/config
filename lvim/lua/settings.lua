@@ -87,7 +87,18 @@ function Settings.setKeymaps()
 	vim.cmd [[au VimEnter * highlight Visual guifg=cyan guibg=DarkSlateGray4 gui=none]]
 	vim.cmd [[au VimEnter * highlight Search guibg=purple ]]
 	vim.cmd [[au VimEnter * highlight LineNr guifg=cyan3]]
-	vim.cmd [[autocmd VimEnter,WinEnter * match Cursor /\%#./]]
+	-- vim.cmd [[autocmd VimEnter,WinEnter * match Cursor /\%#./]]
+
+	-- " These create newlines like o and O but stay in normal mode
+	vim.cmd [[nmap zj o<C-[>]]
+	vim.cmd [[nmap zk O<C-[>]]
+
+	-- vim.cmd [[nnoremap <Leader>o o<Esc>]]
+	-- vim.cmd [[nnoremap <Leader>O O<Esc>]]
+
+	-- vim.cmd [[nnoremap <Leader>o o<Esc>0"_D]]
+	-- vim.cmd [[nnoremap <Leader>O O<Esc>0"_D]]
+
 	-- vim.cmd [[au DiffAdd * highlight LineNr guifg=cyan3]]
 	-- vim.cmd [[au DiffChange * highlight LineNr guifg=cyan3]]
 	-- vim.cmd [[au DiffDelete * highlight LineNr guifg=red]]
