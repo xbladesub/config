@@ -7,7 +7,6 @@ ${custom.giturl}\
 $git_commit\
 $git_state\
 $git_status\
-${custom.temp}\
 $battery\
 $memory_usage\
 ${custom.cpuUsage}\
@@ -31,7 +30,7 @@ disabled = false
 [memory_usage]
 disabled = false
 threshold = -1
-symbol = " "
+symbol = ""
 style = "bold dimmed green"
 format = "$symbol [${ram}( | ${swap})]($style) "
 
@@ -82,7 +81,7 @@ style = "bold white"
 [time]
 disabled = false
 use_12hr = true
-format = "at [ $time]($style) "
+format = " at [ $time]($style) "
 time_format = "%r, %a %b %d"
 
 [custom.giturl]
@@ -108,19 +107,12 @@ format = "via $output  "
 
 [custom.system_icons]
 description = "Show system icons"
-command     = '([ $(uname -s) == "Darwin" ] && echo ) || ([ $(uname -s) == "Linux" ] && echo )'
+command     = '([ $(uname -s) == "Darwin" ] && echo  ) || ([ $(uname -s) == "Linux" ] && echo )'
 symbol      = "using"
-format      = "[$symbol]() [$output]($style) "
+format      = "[$symbol]() [$output]($style)  "
 style       = "bold"
 shell       = ["bash", "--noprofile", "--norc"]
 when        = "true"
-
-[custom.temp]
-description = "Show CPU temperature."
-command = "temp"
-when = "true"
-style = "bold  #fe8d00"
-format = "at [ $output]($style) "
 
 
 [custom.cpuUsage]
@@ -128,4 +120,4 @@ description = "Show CPU Usage."
 command = "top -l 1 | grep -E \"^CPU\" | grep -Eo '[^[:space:]]+%' | head -1 | sed s/\\%/\\/"
 when = "true"
 style = "bold  green"
-format = "   [$output]($style) "
+format = "  [$output]($style) "
