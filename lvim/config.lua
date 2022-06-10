@@ -26,7 +26,7 @@ lvim.builtin.dap = {
 }
 
 local dap = require "dap"
-dap.set_log_level('TRACE')
+-- dap.set_log_level('TRACE')
 
 if lvim.use_icons then
 	vim.fn.sign_define("DapBreakpoint", lvim.builtin.dap.breakpoint)
@@ -60,7 +60,10 @@ local libLLDB = require("settings").libLLDB
 
 local cmd = "/Users/nshv/.vscode/extensions/vadimcn.vscode-lldb-1.7.0/adapter/codelldb"
 
-dap.adapters.codelldb = function(on_adapter)
+dap.adapters.codelldb_swift = function(on_adapter)
+
+	vim.cmd [[!swift build]]
+
 	-- This asks the system for a free port
 	local tcp = vim.loop.new_tcp()
 	tcp:bind("127.0.0.1", 0)
@@ -126,7 +129,7 @@ end
 
 dap.configurations.swift = {
 	{
-		type = "codelldb",
+		type = "codelldb_swift",
 		request = "launch",
 		name = "DEBUG",
 		program = function()
