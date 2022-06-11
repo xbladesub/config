@@ -1686,7 +1686,7 @@
 				<real>0.1059383824467659</real>
 			</dict>
 			<key>Background Image Location</key>
-			<string></string>
+			<string>/Users/nshv/Library/Mobile Documents/com~apple~CloudDocs/Wallpapers/306406.jpg</string>
 			<key>Badge Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -1702,6 +1702,8 @@
 			</dict>
 			<key>Badge Text</key>
 			<string></string>
+			<key>Blend</key>
+			<real>0.26384454257246381</real>
 			<key>Blink Allowed</key>
 			<true/>
 			<key>Blinking Cursor</key>
@@ -1814,11 +1816,11 @@
 			<key>HotKey Alternate Shortcuts</key>
 			<array/>
 			<key>HotKey Characters</key>
-			<string>r</string>
+			<string>1</string>
 			<key>HotKey Characters Ignoring Modifiers</key>
-			<string>R</string>
+			<string>!</string>
 			<key>HotKey Key Code</key>
-			<integer>15</integer>
+			<integer>18</integer>
 			<key>HotKey Modifier Activation</key>
 			<integer>3</integer>
 			<key>HotKey Modifier Flags</key>
@@ -2389,9 +2391,9 @@
 		</dict>
 	</array>
 	<key>OpenArrangementAtStartup</key>
-	<false/>
-	<key>OpenNoWindowsAtStartup</key>
 	<true/>
+	<key>OpenNoWindowsAtStartup</key>
+	<false/>
 	<key>PMPrintingExpandedStateForPrint2</key>
 	<false/>
 	<key>PasteSpecialRegex</key>
@@ -2476,19 +2478,27 @@
 				<key>Has Toolbelt</key>
 				<false/>
 				<key>Height</key>
-				<real>403</real>
+				<real>945</real>
 				<key>Hide After Opening</key>
 				<false/>
 				<key>Hiding Toolbelt Should Resize Window</key>
-				<true/>
+				<false/>
 				<key>Hotkey Profile GUID</key>
 				<string>051EB6BF-650F-48A3-96D2-022E56B9EB8C</string>
 				<key>Initial Profile</key>
 				<dict/>
 				<key>Is Hotkey Window</key>
 				<true/>
+				<key>Old Height</key>
+				<real>944</real>
+				<key>Old Width</key>
+				<real>1512</real>
+				<key>Old X Origin</key>
+				<real>0.0</real>
+				<key>Old Y Origin</key>
+				<real>0.0</real>
 				<key>Saved Window Type</key>
-				<integer>2</integer>
+				<integer>12</integer>
 				<key>Screen</key>
 				<integer>-1</integer>
 				<key>Scroller Width</key>
@@ -2501,7 +2511,7 @@
 						<key>Root</key>
 						<dict>
 							<key>Splitter ID</key>
-							<string>6C1CEEAB-D26D-4069-92FE-4E6707774E71</string>
+							<string>A772EF66-D96D-413E-8A27-2C325C034A81</string>
 							<key>Subviews</key>
 							<array>
 								<dict>
@@ -2743,7 +2753,7 @@
 												<real>0.1059383824467659</real>
 											</dict>
 											<key>Background Image Location</key>
-											<string></string>
+											<string>/Users/nshv/Library/Mobile Documents/com~apple~CloudDocs/Wallpapers/306406.jpg</string>
 											<key>Badge Color</key>
 											<dict>
 												<key>Alpha Component</key>
@@ -2759,6 +2769,8 @@
 											</dict>
 											<key>Badge Text</key>
 											<string></string>
+											<key>Blend</key>
+											<real>0.26384454257246381</real>
 											<key>Blink Allowed</key>
 											<true/>
 											<key>Blinking Cursor</key>
@@ -2766,7 +2778,7 @@
 											<key>Blur</key>
 											<true/>
 											<key>Blur Radius</key>
-											<real>11.014261968085107</real>
+											<real>5.7777759308510639</real>
 											<key>Bold Color</key>
 											<dict>
 												<key>Alpha Component</key>
@@ -2797,13 +2809,13 @@
 												<key>Alpha Component</key>
 												<real>1</real>
 												<key>Blue Component</key>
-												<real>0.96078431606292725</real>
+												<real>0.94677621126174927</real>
 												<key>Color Space</key>
-												<string>sRGB</string>
+												<string>P3</string>
 												<key>Green Component</key>
-												<real>0.7921568751335144</real>
+												<real>0.79089128971099854</real>
 												<key>Red Component</key>
-												<real>0.75294119119644165</real>
+												<real>0.7601020336151123</real>
 											</dict>
 											<key>Cursor Guide Color</key>
 											<dict>
@@ -2861,33 +2873,33 @@
 												<real>0.73333334922790527</real>
 											</dict>
 											<key>Guid</key>
-											<string>9FA94672-DD23-43B2-A2F7-140A24302018</string>
+											<string>F5CB29E9-8F98-453B-92DE-2EC5F17F68A1</string>
 											<key>Has Hotkey</key>
 											<true/>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>HotKey Activated By Modifier</key>
-											<true/>
+											<false/>
 											<key>HotKey Alternate Shortcuts</key>
 											<array/>
 											<key>HotKey Characters</key>
-											<string></string>
+											<string>r</string>
 											<key>HotKey Characters Ignoring Modifiers</key>
-											<string></string>
+											<string>R</string>
 											<key>HotKey Key Code</key>
-											<integer>0</integer>
+											<integer>15</integer>
 											<key>HotKey Modifier Activation</key>
 											<integer>3</integer>
 											<key>HotKey Modifier Flags</key>
-											<integer>0</integer>
+											<integer>1179648</integer>
 											<key>HotKey Window Animates</key>
-											<true/>
+											<false/>
 											<key>HotKey Window AutoHides</key>
 											<false/>
 											<key>HotKey Window Dock Click Action</key>
 											<integer>0</integer>
 											<key>HotKey Window Floats</key>
-											<true/>
+											<false/>
 											<key>HotKey Window Reopens On Activation</key>
 											<false/>
 											<key>Icon</key>
@@ -3263,6 +3275,8 @@
 											<false/>
 											<key>Smart Cursor Color</key>
 											<false/>
+											<key>Space</key>
+											<integer>-1</integer>
 											<key>Status Bar Layout</key>
 											<dict>
 												<key>advanced configuration</key>
@@ -3414,7 +3428,7 @@
 											<key>Title Components</key>
 											<integer>517</integer>
 											<key>Transparency</key>
-											<real>0.42125166223404259</real>
+											<real>0.0</real>
 											<key>Unicode Normalization</key>
 											<integer>0</integer>
 											<key>Unicode Version</key>
@@ -3440,16 +3454,94 @@
 											<key>Visual Bell</key>
 											<true/>
 											<key>Window Type</key>
-											<integer>0</integer>
+											<integer>2</integer>
 											<key>Working Directory</key>
 											<string>/Users/jefflebrun</string>
 										</dict>
 										<key>Columns</key>
 										<integer>214</integer>
 										<key>Commands</key>
-										<array/>
+										<array>
+											<string>lvim</string>
+										</array>
 										<key>Directories</key>
 										<array>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
 											<string>/Users/nshv</string>
 										</array>
 										<key>Environment</key>
@@ -3458,9 +3550,37 @@
 											<string>/Users/nshv</string>
 										</dict>
 										<key>Hostname to Shell</key>
-										<dict/>
+										<dict>
+											<key>nshv@Nikolais-MacBook-Pro.local</key>
+											<string>zsh</string>
+										</dict>
 										<key>Hosts</key>
-										<array/>
+										<array>
+											<dict>
+												<key>Host name</key>
+												<string>Nikolais-MacBook-Pro.local</string>
+												<key>User name</key>
+												<string>nshv</string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>Nikolais-MacBook-Pro.local</string>
+												<key>User name</key>
+												<string>nshv</string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>Nikolais-MacBook-Pro.local</string>
+												<key>User name</key>
+												<string>nshv</string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>Nikolais-MacBook-Pro.local</string>
+												<key>User name</key>
+												<string>nshv</string>
+											</dict>
+										</array>
 										<key>Is UTF-8</key>
 										<true/>
 										<key>Key Labels</key>
@@ -3468,33 +3588,38 @@
 										<key>Name Controller State</key>
 										<dict>
 											<key>icon title stack</key>
-											<array/>
+											<array>
+												<string>lvim</string>
+												<string>lvim</string>
+											</array>
 											<key>window title stack</key>
-											<array/>
+											<array>
+												<string>lvim</string>
+												<string>lvim</string>
+											</array>
 										</dict>
 										<key>Overridden Fields</key>
 										<array>
+											<string>Cursor Color</string>
 											<string>Original Guid</string>
 											<string>Guid</string>
 											<string>Title Components</string>
 										</array>
 										<key>Program</key>
 										<dict>
-											<key>Command</key>
-											<string>login -fqp "nshv"</string>
 											<key>Type</key>
-											<string>Command</string>
+											<string>Shell Launcher</string>
 										</dict>
 										<key>Rows</key>
-										<integer>23</integer>
+										<integer>59</integer>
 										<key>Session GUID</key>
-										<string>7EF91711-1652-4D83-A06D-980169E49EC6</string>
+										<string>B64F2607-AF9D-47C5-9885-4B1037A30743</string>
 										<key>Short Lived Single Use</key>
 										<false/>
 										<key>Should Expect Current Dir Updates</key>
-										<false/>
+										<true/>
 										<key>Should Expect Prompt Marks</key>
-										<false/>
+										<true/>
 										<key>Substitutions</key>
 										<dict>
 											<key>$$$$</key>
@@ -3503,14 +3628,14 @@
 										<key>Working Directory</key>
 										<string>/Users/nshv</string>
 										<key>Working Directory Poller Disabled</key>
-										<false/>
+										<true/>
 									</dict>
 									<key>View Type</key>
 									<string>SessionView</string>
 									<key>frame</key>
 									<dict>
 										<key>height</key>
-										<real>379</real>
+										<real>921</real>
 										<key>width</key>
 										<real>1512</real>
 										<key>x</key>
@@ -3525,7 +3650,7 @@
 							<key>frame</key>
 							<dict>
 								<key>height</key>
-								<real>379</real>
+								<real>921</real>
 								<key>width</key>
 								<real>1512</real>
 								<key>x</key>
@@ -3537,11 +3662,11 @@
 							<false/>
 						</dict>
 						<key>Tab GUID</key>
-						<string>BBAD2733-D480-4EAA-92B8-84F356FF6221</string>
+						<string>E9FA1506-0D53-4E2F-9B9E-C578A4AB6BAD</string>
 					</dict>
 				</array>
 				<key>TerminalGuid</key>
-				<string>pty-AFC4EAAE-8439-4620-BAAA-D13C0E30C426</string>
+				<string>pty-20BE33EE-C9F1-476D-9964-DC1E13E3565D</string>
 				<key>Toolbelt</key>
 				<dict>
 					<key>Profiles</key>
@@ -3568,15 +3693,15 @@
 					</array>
 				</dict>
 				<key>Use Transparency</key>
-				<true/>
+				<false/>
 				<key>Width</key>
 				<real>1512</real>
 				<key>Window Type</key>
-				<integer>2</integer>
+				<integer>1</integer>
 				<key>X Origin</key>
 				<real>0.0</real>
 				<key>Y Origin</key>
-				<real>542</real>
+				<real>0.0</real>
 			</dict>
 		</array>
 	</dict>

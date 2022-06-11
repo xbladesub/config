@@ -1451,11 +1451,11 @@
         <option name="FOREGROUND" value="56b6c2" />
       </value>
     </option>
-    <option name="MARKDOWN_ITALIC">
-      <value>
-        <option name="FONT_TYPE" value="2" />
-      </value>
-    </option>
+    /* <option name="MARKDOWN_ITALIC"> */
+    /*   <value> */
+    /*     <option name="FONT_TYPE" value="2" /> */
+    /*   </value> */
+    /* </option> */
     <option name="MARKDOWN_LINK_TITLE">
       <value>
         <option name="FOREGROUND" value="98c379" />
