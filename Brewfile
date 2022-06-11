@@ -34,7 +34,6 @@ brew "swiftlint"
 brew "tmux"
 brew "tree"
 brew "tree-sitter"
-brew "truffle"
 brew "vapor"
 brew "zoxide"
 
