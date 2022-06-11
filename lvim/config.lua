@@ -235,9 +235,16 @@ local nvim_lsp = require 'lspconfig'
 nvim_lsp["clangd"].setup {}
 local opts = { autostart = true } -- check the lspconfig documentation for a list of all possible options
 require("lvim.lsp.manager").setup("solidity_ls", opts)
-require("lvim.lsp.manager").setup("solc", opts)
 require("lvim.lsp.manager").setup("kotlin_language_server", opts)
 require("lvim.lsp.manager").setup("sourcekit", opts)
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "solc" })
+nvim_lsp['solc'].setup {
+	autostart = true,
+	cmd = { "/Users/nshv/Library/Python/3.8/bin/solc", "--lsp" },
+	filetypes = { "solidity" },
+	-- rootdir = root_pattern(".git")
+}
+
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
 	{
