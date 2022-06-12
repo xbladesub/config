@@ -245,7 +245,6 @@ nvim_lsp['solc'].setup {
 	autostart = true,
 	cmd = { "/Users/nshv/Library/Python/3.8/bin/solc", "--lsp" },
 	filetypes = { "solidity" },
-	-- rootdir = root_pattern(".git")
 }
 
 local formatters = require "lvim.lsp.null-ls.formatters"
