@@ -1431,6 +1431,118 @@
 	<false/>
 	<key>ForceAntialiasingOnRetina</key>
 	<true/>
+	<key>GlobalKeyMap</key>
+	<dict>
+		<key>0x19-0x60000</key>
+		<dict>
+			<key>Action</key>
+			<integer>39</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
+		<key>0x4c-0x120000-0x25</key>
+		<dict>
+			<key>Action</key>
+			<integer>12</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>lvim</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
+		<key>0x9-0x40000</key>
+		<dict>
+			<key>Action</key>
+			<integer>32</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
+		<key>0xf700-0x300000</key>
+		<dict>
+			<key>Action</key>
+			<integer>7</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
+		<key>0xf701-0x300000</key>
+		<dict>
+			<key>Action</key>
+			<integer>6</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
+		<key>0xf702-0x300000</key>
+		<dict>
+			<key>Action</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
+		<key>0xf702-0x320000</key>
+		<dict>
+			<key>Action</key>
+			<integer>33</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
+		<key>0xf703-0x300000</key>
+		<dict>
+			<key>Action</key>
+			<integer>0</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
+		<key>0xf703-0x320000</key>
+		<dict>
+			<key>Action</key>
+			<integer>34</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
+		<key>0xf729-0x100000</key>
+		<dict>
+			<key>Action</key>
+			<integer>5</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
+		<key>0xf72b-0x100000</key>
+		<dict>
+			<key>Action</key>
+			<integer>4</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
+		<key>0xf72c-0x100000</key>
+		<dict>
+			<key>Action</key>
+			<integer>9</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
+		<key>0xf72c-0x20000</key>
+		<dict>
+			<key>Action</key>
+			<integer>9</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
+		<key>0xf72d-0x100000</key>
+		<dict>
+			<key>Action</key>
+			<integer>8</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
+		<key>0xf72d-0x20000</key>
+		<dict>
+			<key>Action</key>
+			<integer>8</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
+	</dict>
 	<key>HTMLTabTitles</key>
 	<true/>
 	<key>HapticFeedbackForEsc</key>
@@ -2478,7 +2590,7 @@
 				<key>Has Toolbelt</key>
 				<false/>
 				<key>Height</key>
-				<real>945</real>
+				<real>1440</real>
 				<key>Hide After Opening</key>
 				<false/>
 				<key>Hiding Toolbelt Should Resize Window</key>
@@ -2489,20 +2601,12 @@
 				<dict/>
 				<key>Is Hotkey Window</key>
 				<true/>
-				<key>Old Height</key>
-				<real>944</real>
-				<key>Old Width</key>
-				<real>1512</real>
-				<key>Old X Origin</key>
-				<real>0.0</real>
-				<key>Old Y Origin</key>
-				<real>0.0</real>
 				<key>Saved Window Type</key>
 				<integer>12</integer>
 				<key>Screen</key>
 				<integer>-1</integer>
 				<key>Scroller Width</key>
-				<real>0.0</real>
+				<real>15</real>
 				<key>Selected Tab Index</key>
 				<integer>0</integer>
 				<key>Tabs</key>
@@ -2873,7 +2977,7 @@
 												<real>0.73333334922790527</real>
 											</dict>
 											<key>Guid</key>
-											<string>F5CB29E9-8F98-453B-92DE-2EC5F17F68A1</string>
+											<string>8BF30B7C-352B-4359-9518-D1CF2848AAD3</string>
 											<key>Has Hotkey</key>
 											<true/>
 											<key>Horizontal Spacing</key>
@@ -2883,11 +2987,11 @@
 											<key>HotKey Alternate Shortcuts</key>
 											<array/>
 											<key>HotKey Characters</key>
-											<string>r</string>
+											<string>1</string>
 											<key>HotKey Characters Ignoring Modifiers</key>
-											<string>R</string>
+											<string>!</string>
 											<key>HotKey Key Code</key>
-											<integer>15</integer>
+											<integer>18</integer>
 											<key>HotKey Modifier Activation</key>
 											<integer>3</integer>
 											<key>HotKey Modifier Flags</key>
@@ -3218,7 +3322,7 @@
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Normal Font</key>
-											<string>JetBrainsMonoNerdFontCompleteM-Regular 12</string>
+											<string>JetBrainsMonoNerdFontCompleteM-Regular 13</string>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
@@ -3459,13 +3563,36 @@
 											<string>/Users/jefflebrun</string>
 										</dict>
 										<key>Columns</key>
-										<integer>214</integer>
+										<integer>211</integer>
 										<key>Commands</key>
 										<array>
 											<string>lvim</string>
 										</array>
 										<key>Directories</key>
 										<array>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
+											<string>/Users/nshv</string>
 											<string>/Users/nshv</string>
 											<string>/Users/nshv</string>
 											<string>/Users/nshv</string>
@@ -3591,9 +3718,13 @@
 											<array>
 												<string>lvim</string>
 												<string>lvim</string>
+												<string>lvim</string>
+												<string>lvim</string>
 											</array>
 											<key>window title stack</key>
 											<array>
+												<string>lvim</string>
+												<string>lvim</string>
 												<string>lvim</string>
 												<string>lvim</string>
 											</array>
@@ -3611,15 +3742,15 @@
 											<string>Shell Launcher</string>
 										</dict>
 										<key>Rows</key>
-										<integer>59</integer>
+										<integer>86</integer>
 										<key>Session GUID</key>
 										<string>B64F2607-AF9D-47C5-9885-4B1037A30743</string>
 										<key>Short Lived Single Use</key>
 										<false/>
 										<key>Should Expect Current Dir Updates</key>
-										<true/>
+										<false/>
 										<key>Should Expect Prompt Marks</key>
-										<true/>
+										<false/>
 										<key>Substitutions</key>
 										<dict>
 											<key>$$$$</key>
@@ -3635,9 +3766,9 @@
 									<key>frame</key>
 									<dict>
 										<key>height</key>
-										<real>921</real>
+										<real>1416</real>
 										<key>width</key>
-										<real>1512</real>
+										<real>1720</real>
 										<key>x</key>
 										<real>0.0</real>
 										<key>y</key>
@@ -3650,9 +3781,9 @@
 							<key>frame</key>
 							<dict>
 								<key>height</key>
-								<real>921</real>
+								<real>1416</real>
 								<key>width</key>
-								<real>1512</real>
+								<real>1720</real>
 								<key>x</key>
 								<real>0.0</real>
 								<key>y</key>
@@ -3693,11 +3824,11 @@
 					</array>
 				</dict>
 				<key>Use Transparency</key>
-				<false/>
+				<true/>
 				<key>Width</key>
-				<real>1512</real>
+				<real>1720</real>
 				<key>Window Type</key>
-				<integer>1</integer>
+				<integer>12</integer>
 				<key>X Origin</key>
 				<real>0.0</real>
 				<key>Y Origin</key>
