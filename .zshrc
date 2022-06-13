@@ -21,7 +21,7 @@ export ZSH="$HOME/.oh-my-zsh"
 
 export UPDATE_ZSH_DAYS=5
 
-ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="false"
 
 COMPLETION_WAITING_DOTS5="true"
 
