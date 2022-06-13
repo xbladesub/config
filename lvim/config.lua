@@ -149,7 +149,7 @@ dap.defaults.codelldb.terminal_win_cmd = "split new"
 --------------------------------------------------
 
 lvim.log.level = "warn"
-lvim.format_on_save = true
+lvim.format_on_save = false
 lvim.colorscheme = "tokyonight"
 lvim.leader = "space"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
