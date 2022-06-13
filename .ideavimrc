@@ -1,3 +1,4 @@
+set number
 set relativenumber
 set scrolloff=8 " 3 lines above/below cursor when scrolling
 nnoremap <space><cr> :nohlsearch<cr>
