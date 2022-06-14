@@ -98,6 +98,8 @@ alias vc="vpnify connect -c hkg"
 alias vd="vpnify disconnect"
 alias reload="exec zsh -1"
 alias collage="convert +append"
+alias copy="tr -d '\n' | pbcopy"
+alias cpabi="pbpaste | jq -R | pbcopy"
 # fpath
 
 fpath=($HOME/.zsh $fpath)
