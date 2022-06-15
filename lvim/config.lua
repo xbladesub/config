@@ -184,7 +184,7 @@ vim.g.tokyonight_italic_functions = false
 vim.g.tokyonight_italic_variables = false
 vim.g.tokyonight_italic_keywords = false
 vim.g.tokyonight_italic_comments = false
-vim.g.tokyonight_transparent = false
+vim.g.tokyonight_transparent = true
 vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
 
 -- Change the "hint" color to the "orange" color, and make the "error" color bright red
