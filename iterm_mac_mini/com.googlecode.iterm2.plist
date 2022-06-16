@@ -2852,16 +2852,18 @@
 												<key>Alpha Component</key>
 												<real>1</real>
 												<key>Blue Component</key>
-												<real>0.1906890869140625</real>
+												<real>0.18431372549019609</real>
 												<key>Color Space</key>
-												<string>sRGB</string>
+												<string>P3</string>
 												<key>Green Component</key>
-												<real>0.12359477579593658</real>
+												<real>0.12156862745098039</real>
 												<key>Red Component</key>
-												<real>0.1059383824467659</real>
+												<real>0.10588235294117647</real>
 											</dict>
 											<key>Background Image Location</key>
 											<string>/Users/nshv/Library/Mobile Documents/com~apple~CloudDocs/Wallpapers/306406.jpg</string>
+											<key>Background Image Mode</key>
+											<integer>2</integer>
 											<key>Badge Color</key>
 											<dict>
 												<key>Alpha Component</key>
@@ -2878,7 +2880,7 @@
 											<key>Badge Text</key>
 											<string></string>
 											<key>Blend</key>
-											<real>0.26384454257246381</real>
+											<real>0.15461928215579696</real>
 											<key>Blink Allowed</key>
 											<true/>
 											<key>Blinking Cursor</key>
@@ -2886,7 +2888,7 @@
 											<key>Blur</key>
 											<true/>
 											<key>Blur Radius</key>
-											<real>5.7777759308510639</real>
+											<real>64</real>
 											<key>Bold Color</key>
 											<dict>
 												<key>Alpha Component</key>
@@ -2981,7 +2983,7 @@
 												<real>0.73333334922790527</real>
 											</dict>
 											<key>Guid</key>
-											<string>8BF30B7C-352B-4359-9518-D1CF2848AAD3</string>
+											<string>DB36297A-C832-4CB6-81E6-46B82B68DF2C</string>
 											<key>Has Hotkey</key>
 											<true/>
 											<key>Horizontal Spacing</key>
@@ -3327,6 +3329,8 @@
 											<true/>
 											<key>Normal Font</key>
 											<string>JetBrainsMonoNerdFontCompleteM-Regular 13</string>
+											<key>Only The Default BG Color Uses Transparency</key>
+											<true/>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
@@ -3724,9 +3728,13 @@
 												<string>lvim</string>
 												<string>lvim</string>
 												<string>lvim</string>
+												<string>lvim</string>
+												<string>lvim</string>
 											</array>
 											<key>window title stack</key>
 											<array>
+												<string>lvim</string>
+												<string>lvim</string>
 												<string>lvim</string>
 												<string>lvim</string>
 												<string>lvim</string>
