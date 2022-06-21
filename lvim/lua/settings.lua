@@ -84,10 +84,11 @@ function Settings.setKeymaps()
 	vim.cmd [[vnoremap <Up>    <NOP>]]
 	vim.cmd [[vnoremap <esc>   <NOP>]]
 	vim.cmd [[nnoremap <space><cr> :nohlsearch<cr>]]
-	vim.cmd [[set shell=zsh]]
 	vim.cmd [[au VimEnter * highlight Visual guifg=cyan guibg=DarkSlateGray4 gui=none]]
 	vim.cmd [[au VimEnter * highlight Search guibg=purple ]]
 	vim.cmd [[au VimEnter * highlight LineNr guifg=cyan3]]
+	vim.cmd [[au VimEnter * highlight CursorLine guibg=DarkSlateBlue]]
+	vim.cmd [[set shell=zsh]]
 	-- vim.cmd [[autocmd VimEnter,WinEnter * match Cursor /\%#./]]
 
 	-- " These create newlines like o and O but stay in normal mode
