@@ -38,7 +38,6 @@ brew "zoxide"
 
 # casks a-z
 
-cask "adguard"
 cask "discord"
 cask "eul"
 cask "gitkraken"
