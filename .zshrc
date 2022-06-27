@@ -131,6 +131,7 @@ export PATH="/Users/nshv/.vscode/extensions/vadimcn.vscode-lldb-1.7.0/lldb/bin:$
 export PATH="/Users/nshv/.vscode/extensions/vadimcn.vscode-lldb-1.7.0/adapter:$PATH"
 export PATH="/Users/nshv/Library/Android/sdk/platform-tools:$PATH"
 export EDITOR="nvim"
+export PATH="/Users/nshv/.vscode/extensions/vadimcn.vscode-lldb-1.7.0/lldb/lib/liblldb.dylib:$PATH"
 
 export GPG_TTY=$(tty)
 

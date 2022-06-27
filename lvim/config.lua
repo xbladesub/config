@@ -55,17 +55,22 @@ lvim.builtin.which_key.mappings["d"] = {
 	q = { "<cmd>lua require'dap'.close()<cr>", "Quit" },
 }
 
+lvim.builtin.which_key.mappings["a"] = {
+	name = "command",
+	r = { function() vim.cmd [[RustRun]] end, "RustRun" }
+}
+
 if lvim.builtin.dap.on_config_done then
 	lvim.builtin.dap.on_config_done(dap)
 end
 
 local libLLDB = require("settings").libLLDB
 
-local cmd = "/Users/nshv/.vscode/extensions/vadimcn.vscode-lldb-1.7.0/adapter/codelldb"
+local cmd_codelldb = "/Users/nshv/.vscode/extensions/vadimcn.vscode-lldb-1.7.0/adapter/codelldb"
 
 dap.adapters.codelldb_swift = function(on_adapter)
 
-	vim.cmd [[!swift build]]
+	vim.cmd_codelldb [[!swift build]]
 
 	-- This asks the system for a free port
 	local tcp = vim.loop.new_tcp()
@@ -84,7 +89,72 @@ dap.adapters.codelldb_swift = function(on_adapter)
 	local handle
 	local pid_or_err
 	handle, pid_or_err = vim.loop.spawn(
-		cmd,
+		cmd_codelldb,
+		opts,
+		function(code)
+			stdout:close()
+			stderr:close()
+			handle:close()
+			if code ~= 0 then
+				print("codelldb exited with code", code)
+			end
+		end
+	)
+	if not handle then
+		vim.notify("Error running codelldb: " .. tostring(pid_or_err), vim.log.levels.ERROR)
+		stdout:close()
+		stderr:close()
+		return
+	end
+	vim.notify("codelldb started. pid=" .. pid_or_err)
+	stderr:read_start(
+		function(err, chunk)
+			assert(not err, err)
+			if chunk then
+				vim.schedule(
+					function()
+						require("dap.repl").append(chunk)
+					end
+				)
+			end
+		end
+	)
+	local adapter = {
+		type = "server",
+		host = "127.0.0.1",
+		port = port
+	}
+	-- 💀
+	-- Wait for codelldb to get ready and start listening before telling nvim-dap to connect
+	-- If you get connect errors, try to increase 500 to a higher value, or check the stderr (Open the REPL)
+	vim.defer_fn(
+		function()
+			on_adapter(adapter)
+		end,
+		800
+	)
+end
+
+dap.adapters.codelldb_rust = function(on_adapter)
+
+	-- This asks the system for a free port
+	local tcp = vim.loop.new_tcp()
+	tcp:bind("127.0.0.1", 0)
+	local port = tcp:getsockname().port
+	tcp:shutdown()
+	tcp:close()
+
+	-- Start codelldb with the port
+	local stdout = vim.loop.new_pipe(false)
+	local stderr = vim.loop.new_pipe(false)
+	local opts = {
+		stdio = { nil, stdout, stderr },
+		args = { "--liblldb", libLLDB, "--port", tostring(port) }
+	}
+	local handle
+	local pid_or_err
+	handle, pid_or_err = vim.loop.spawn(
+		cmd_codelldb,
 		opts,
 		function(code)
 			stdout:close()
@@ -144,13 +214,57 @@ dap.configurations.swift = {
 	},
 }
 
+dap.configurations.rust = {
+	{
+		type = "codelldb_rust",
+		request = "launch",
+		name = "DEBUG",
+		program = function()
+			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+		end,
+		cwd = "${workspaceFolder}",
+		liblldb = libLLDB,
+		stopOnEntry = false,
+	},
+}
+
+-- local rust_tools_opts = {
+-- 	autostart = true,
+-- 	dap = {
+-- 		adapter = require('rust-tools.dap').get_codelldb_adapter(
+-- 			cmd_codelldb, libLLDB)
+-- 	}
+-- }
+
+-- require('rust-tools').setup(rust_tools_opts)
+
+require("rust-tools").setup({
+	dap = {
+		adapter = require('rust-tools.dap').get_codelldb_adapter(
+			cmd_codelldb, libLLDB)
+	},
+	tools = {
+		autoSetHints = true,
+		hover_with_actions = true,
+		runnables = {
+			use_telescope = true,
+		},
+	},
+	server = {
+		cmd = { vim.fn.stdpath "data" .. "/lsp_servers/rust/rust-analyzer" },
+		on_attach = require("lvim.lsp").common_on_attach,
+		on_init = require("lvim.lsp").common_on_init,
+	},
+})
+
 dap.defaults.codelldb.terminal_win_cmd = "split new"
 
 --------------------------------------------------
 
 lvim.log.level = "warn"
 lvim.format_on_save = false
-lvim.colorscheme = "tokyonight"
+-- lvim.colorscheme = "tokyonight"
+lvim.colorscheme = "onedark"
 lvim.leader = "space"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 
@@ -199,6 +313,39 @@ vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000" }
 -- 	"Hide diff view"
 -- }
 
+require('onedark').setup {
+	-- Main options --
+	style = 'deep', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
+	transparent = true, -- Show/hide background
+	term_colors = true, -- Change terminal color as per the selected theme style
+	ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
+	cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
+	-- toggle theme style ---
+	toggle_style_key = '<leader>ts', -- Default keybinding to toggle
+	toggle_style_list = { 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light' }, -- List of styles to toggle between
+
+	-- Change code style ---
+	-- Options are italic, bold, underline, none
+	-- You can configure multiple style with comma seperated, For e.g., keywords = 'italic,bold'
+	code_style = {
+		comments = 'none',
+		keywords = 'none',
+		functions = 'none',
+		strings = 'none',
+		variables = 'none'
+	},
+
+	-- Custom Highlights --
+	colors = {}, -- Override default colors
+	highlights = {}, -- Override highlight groups
+
+	-- Plugins Config --
+	diagnostics = {
+		darker = true, -- darker colors for diagnostic
+		undercurl = true, -- use undercurl instead of underline for diagnostics
+		background = true, -- use background color for virtual text
+	},
+}
 
 lvim.builtin.terminal.open_mapping = [[<c-\>]]
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
@@ -245,6 +392,12 @@ nvim_lsp['solc'].setup {
 	autostart = true,
 	cmd = { "/opt/homebrew/bin/solc", "--lsp" },
 	filetypes = { "solidity" },
+}
+
+nvim_lsp['rust_analyzer'].setup {
+	autostart = true,
+	-- cmd = { "/Users/nshv/Repos/rust-analyzer/target/release/rust-analyzer"},
+	filetypes = { "rs", "rust" },
 }
 
 local formatters = require "lvim.lsp.null-ls.formatters"
@@ -321,6 +474,9 @@ lvim.plugins = {
 	},
 	{
 		"theHamsta/nvim-dap-virtual-text",
+	},
+	{
+		"simrat39/rust-tools.nvim"
 	}
 }
 
@@ -431,7 +587,7 @@ wilder.set_option('renderer', wilder.renderer_mux({
 	substitute = wildmenu_renderer
 }))
 
-lvim.builtin.project.patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "Package.swift", ".xcworkspace", ".xcodeproj" }
+lvim.builtin.project.patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "Package.swift", ".xcworkspace", ".xcodeproj", "Cargo.toml" }
 lvim.builtin.project.show_hidden = true
 
 require("nvim-treesitter.configs").setup {
