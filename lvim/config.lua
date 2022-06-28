@@ -236,26 +236,26 @@ dap.configurations.rust = {
 -- 	}
 -- }
 
--- require('rust-tools').setup(rust_tools_opts)
+require('rust-tools').setup({})
 
-require("rust-tools").setup({
-	dap = {
-		adapter = require('rust-tools.dap').get_codelldb_adapter(
-			cmd_codelldb, libLLDB)
-	},
-	tools = {
-		autoSetHints = true,
-		hover_with_actions = true,
-		runnables = {
-			use_telescope = true,
-		},
-	},
-	server = {
-		cmd = { vim.fn.stdpath "data" .. "/lsp_servers/rust/rust-analyzer" },
-		on_attach = require("lvim.lsp").common_on_attach,
-		on_init = require("lvim.lsp").common_on_init,
-	},
-})
+-- require("rust-tools").setup({
+-- 	dap = {
+-- 		adapter = require('rust-tools.dap').get_codelldb_adapter(
+-- 			cmd_codelldb, libLLDB)
+-- 	},
+-- 	tools = {
+-- 		autoSetHints = true,
+-- 		hover_with_actions = true,
+-- 		runnables = {
+-- 			use_telescope = true,
+-- 		},
+-- 	},
+-- 	server = {
+-- 		cmd = { vim.fn.stdpath "data" .. "/lsp_servers/rust/rust-analyzer" },
+-- 		on_attach = require("lvim.lsp").common_on_attach,
+-- 		on_init = require("lvim.lsp").common_on_init,
+-- 	},
+-- })
 
 dap.defaults.codelldb.terminal_win_cmd = "split new"
 
