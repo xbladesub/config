@@ -55,11 +55,6 @@ lvim.builtin.which_key.mappings["d"] = {
 	q = { "<cmd>lua require'dap'.close()<cr>", "Quit" },
 }
 
-lvim.builtin.which_key.mappings["a"] = {
-	name = "command",
-	r = { function() vim.cmd [[RustRun]] end, "RustRun" }
-}
-
 if lvim.builtin.dap.on_config_done then
 	lvim.builtin.dap.on_config_done(dap)
 end
@@ -228,6 +223,30 @@ dap.configurations.rust = {
 	},
 }
 
+require("rust-tools").setup {
+	tools = {
+		on_initialized = function()
+			vim.cmd [[
+            autocmd BufEnter,CursorHold,InsertLeave,BufWritePost *.rs silent! lua vim.lsp.codelens.refresh()
+          ]]
+		end,
+	},
+	server = {
+		-- on_attach = require("user.lsp.handlers").on_attach,
+		-- capabilities = require("user.lsp.handlers").capabilities,
+		settings = {
+			["rust-analyzer"] = {
+				lens = {
+					enable = true,
+				},
+				checkOnSave = {
+					command = "clippy",
+				},
+			},
+		},
+	},
+}
+
 -- local rust_tools_opts = {
 -- 	autostart = true,
 -- 	dap = {
@@ -235,8 +254,6 @@ dap.configurations.rust = {
 -- 			cmd_codelldb, libLLDB)
 -- 	}
 -- }
-
-require('rust-tools').setup({})
 
 -- require("rust-tools").setup({
 -- 	dap = {
