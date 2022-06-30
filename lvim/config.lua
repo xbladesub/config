@@ -215,7 +215,7 @@ dap.configurations.rust = {
 		request = "launch",
 		name = "DEBUG",
 		program = function()
-			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+			return "${workspaceFolder}/target/debug/" .. vim.fn.substitute(vim.fn.getcwd(), '^.*/', '', '')
 		end,
 		cwd = "${workspaceFolder}",
 		liblldb = libLLDB,
@@ -305,10 +305,35 @@ lvim.builtin.which_key.mappings["s"].s = {
 	"<cmd>SearchSession<CR>",
 	"Search session"
 }
-lvim.builtin.which_key.mappings["r"] = {
+lvim.builtin.which_key.mappings["m"] = {
 	"<cmd>SymbolsOutline<CR>",
 	"Symbols outline"
 }
+
+lvim.builtin.which_key.mappings["r"] = {
+	name = "Rust tools",
+	i = { "<cmd>RustToggleInlayHints<Cr>", "RustToggleInlayHints" },
+	r = { "<cmd>RustRunnables<Cr>", "RustRunnables" },
+	M = { "<cmd>RustExpandMacro<Cr>", "RustExpandMacro" },
+	c = { "<cmd>RustOpenCargo<Cr>", "RustOpenCargo" },
+	p = { "<cmd>RustParentModule<Cr>", "RustParentModule" },
+	j = { "<cmd>RustJoinLines<Cr>", "RustJoinLines" },
+	h = { "<cmd>RustHoverActions<Cr>", "RustHoverActions" },
+	H = { "<cmd>RustHoverRange<Cr>", "RustHoverRange" },
+	m = {
+		name = "Move",
+		u = { "<cmd>RustMoveItemUp<Cr>", "RustMoveItemUp" },
+		d = { "<cmd>RustMoveItemDown<Cr>", "RustMoveItemDown" },
+	},
+	s = { "<cmd>RustStartStandaloneServerForBuffer<Cr>", "Start server for buffer" },
+	d = { "<cmd>RustDebuggables<Cr>", "RustDebuggables" },
+	g = { "<cmd>RustViewCrateGraph<Cr>", "RustViewCrateGraph" },
+	R = { "<cmd>RustReloadWorkspace<Cr>", "RustReloadWorkspace" },
+	S = { "<cmd>RustSSR<Cr>", "RustSSR" },
+	D = { "<cmd>RustOpenExternalDocs<Cr>", "RustOpenExternalDocs" }
+}
+
+
 -- Example config in Lua
 vim.g.tokyonight_style = "night"
 vim.g.tokyonight_italic_functions = false
@@ -411,11 +436,11 @@ nvim_lsp['solc'].setup {
 	filetypes = { "solidity" },
 }
 
-nvim_lsp['rust_analyzer'].setup {
-	autostart = true,
-	-- cmd = { "/Users/nshv/Repos/rust-analyzer/target/release/rust-analyzer"},
-	filetypes = { "rs", "rust" },
-}
+-- nvim_lsp['rust_analyzer'].setup {
+-- 	autostart = true,
+-- 	-- cmd = { "/Users/nshv/Repos/rust-analyzer/target/release/rust-analyzer"},
+-- 	filetypes = { "rs", "rust" },
+-- }
 
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
@@ -506,30 +531,30 @@ require("nvim-dap-virtual-text").setup({
 	commented = false,
 })
 
--- local dapui = require("dapui")
+local dapui = require("dapui")
 
--- dapui.setup({
--- 	sidebar = {
--- 		elements = {
--- 			{ id = "scopes", size = 0.25 },
--- 			{ id = "breakpoints", size = 0.25 },
--- 			{ id = "stacks", size = 0.25 },
--- 			--{ id = "watches", size = 0.50 },
--- 		},
--- 		size = 70,
--- 		position = "left",
--- 	},
--- })
+dapui.setup({
+	-- sidebar = {
+	-- 	elements = {
+	-- 		{ id = "scopes", size = 0.25 },
+	-- 		{ id = "breakpoints", size = 0.25 },
+	-- 		{ id = "stacks", size = 0.25 },
+	-- 		--{ id = "watches", size = 0.50 },
+	-- 	},
+	-- 	size = 70,
+	-- 	position = "left",
+	-- },
+})
 
--- dap.listeners.after.event_initialized["dapui_config"] = function()
--- 	dapui.open()
--- end
--- dap.listeners.before.event_terminated["dapui_config"] = function()
--- 	dapui.close()
--- end
--- dap.listeners.before.event_exited["dapui_config"] = function()
--- 	dapui.close()
--- end
+dap.listeners.after.event_initialized["dapui_config"] = function()
+	dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+	dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+	dapui.close()
+end
 
 require "surround".setup {
 	context_offset = 100,
