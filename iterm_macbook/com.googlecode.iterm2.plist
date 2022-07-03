@@ -1811,7 +1811,7 @@
 			<key>Background Image Location</key>
 			<string>/Users/nshv/Library/Mobile Documents/com~apple~CloudDocs/Wallpapers/wallpaperflare.com_wallpaper-4.jpg</string>
 			<key>Background Image Mode</key>
-			<integer>1</integer>
+			<integer>2</integer>
 			<key>Badge Color</key>
 			<dict>
 				<key>Alpha Component</key>
