@@ -519,6 +519,10 @@ lvim.plugins = {
 	},
 	{
 		"simrat39/rust-tools.nvim"
+	},
+	{
+		"mrjones2014/dash.nvim",
+		run = 'make install'
 	}
 }
 

@@ -39,6 +39,7 @@ brew "zoxide"
 # casks a-z
 
 cask "discord"
+cask "dash"
 cask "eul"
 cask "gitkraken"
 cask "ganache"
