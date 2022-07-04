@@ -333,6 +333,16 @@ lvim.builtin.which_key.mappings["r"] = {
 	D = { "<cmd>RustOpenExternalDocs<Cr>", "RustOpenExternalDocs" }
 }
 
+lvim.builtin.which_key.mappings["-"] = {
+	name = "Dash",
+	w = { "<cmd>DashWord<Cr>", "DashWord" },
+	f = { "<cmd>Dash<Cr>", "Dash" }
+}
+
+lvim.builtin.which_key.mappings["."] = {
+	"<cmd>only<CR>",
+	"Only"
+}
 
 -- Example config in Lua
 vim.g.tokyonight_style = "night"
@@ -523,6 +533,9 @@ lvim.plugins = {
 	{
 		"mrjones2014/dash.nvim",
 		run = 'make install'
+	},
+	{
+		"pechorin/any-jump.vim"
 	}
 }
 
