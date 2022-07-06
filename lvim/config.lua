@@ -771,8 +771,8 @@ end
 
 -- vim.g.neovide_transparency = 0.75
 vim.g.neovide_cursor_vfx_mode = "ripple"
--- vim.g.neovide_remember_window_size = true
--- vim.g.neovide_remember_window_position = true
+vim.g.neovide_remember_window_size = true
+vim.g.neovide_remember_window_position = true
 -- vim.g.neovide_cursor_antialiasing = true
 -- vim.g.neovide_fullscreen = true
 
