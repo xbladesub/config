@@ -764,9 +764,9 @@ require('session-lens').setup {
 }
 
 if string.match(vim.fn.system('uname -a'), 'mini') then
-	vim.o.guifont = "JetBrainsMono Nerd Font Mono:h13"
+	vim.o.guifont = "JBMonoMedCustom:h13"
 else
-	vim.o.guifont = "JetBrainsMono Nerd Font Mono:h12"
+	vim.o.guifont = "JBMonoMedCustom:h12"
 end
 
 -- vim.g.neovide_transparency = 0.75

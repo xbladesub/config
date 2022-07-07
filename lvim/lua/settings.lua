@@ -62,6 +62,7 @@ function Settings.setOptions()
 	o.encoding = "utf8"
 	o.cmdheight = 2
 	o.winfixwidth = true
+	o.linespace = 20
 
 	vim.g.do_filetype_lua = 1
 	vim.g.did_load_filetypes = 0
@@ -86,7 +87,7 @@ function Settings.setKeymaps()
 	vim.cmd [[nnoremap <space><cr> :nohlsearch<cr>]]
 	vim.cmd [[au VimEnter * highlight Visual guifg=cyan guibg=DarkSlateGray4 gui=none]]
 	vim.cmd [[au VimEnter * highlight Search guibg=purple ]]
-	vim.cmd [[au VimEnter * highlight LineNr guifg=cyan3]]
+	-- vim.cmd [[au VimEnter * highlight LineNr guifg=cyan3]]
 	-- vim.cmd [[au VimEnter * highlight CursorLine guibg=DarkSlateBlue]]
 	vim.cmd [[set shell=zsh]]
 	-- vim.cmd [[autocmd VimEnter,WinEnter * match Cursor /\%#./]]
