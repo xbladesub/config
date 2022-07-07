@@ -368,7 +368,7 @@ vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000" }
 require('onedark').setup {
 	-- Main options --
 	style = 'darker', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
-	transparent = false, -- Show/hide background
+	transparent = true, -- Show/hide background
 	term_colors = true, -- Change terminal color as per the selected theme style
 	ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
 	cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
@@ -764,11 +764,11 @@ require('session-lens').setup {
 	prompt_title = 'SESSIONS',
 }
 
-if string.match(vim.fn.system('uname -a'), 'mini') then
-	vim.o.guifont = "JBMonoMedCustom:h13"
-else
-	vim.o.guifont = "JBMonoMedCustom:h12"
-end
+-- if string.match(vim.fn.system('uname -a'), 'mini') then
+-- 	vim.o.guifont = "JetBrainsMono Nerd Font Mono:h13"
+-- else
+-- 	vim.o.guifont = "JetBrainsMono Nerd Font Mono:h12"
+-- end
 
 -- vim.g.neovide_transparency = 0.75
 vim.g.neovide_cursor_vfx_mode = "ripple"
