@@ -232,7 +232,9 @@ require("rust-tools").setup {
 		end,
 	},
 	server = {
-		-- on_attach = require("user.lsp.handlers").on_attach,
+		on_attach = function()
+			vim.cmd [[SymbolsOutlineOpen]]
+		end,
 		-- capabilities = require("user.lsp.handlers").capabilities,
 		settings = {
 			["rust-analyzer"] = {
