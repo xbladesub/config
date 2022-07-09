@@ -3,7 +3,7 @@
     "result" : {
       "textSpacing" : 9,
       "subtext" : {
-        "size" : 12,
+        "size" : 13,
         "colorSelected" : "#8593D3FF",
         "font" : "JetBrains Mono Regular Nerd Font Complete Mono",
         "color" : "#5A6491FF"
@@ -16,7 +16,7 @@
       },
       "backgroundSelected" : "#24283BFF",
       "text" : {
-        "size" : 20,
+        "size" : 18,
         "colorSelected" : "#ABBAFFFF",
         "font" : "JetBrains Mono Regular Nerd Font Complete Mono",
         "color" : "#6570A1FF"
@@ -31,7 +31,7 @@
       "paddingHorizontal" : 8,
       "spacing" : 22,
       "text" : {
-        "size" : 29,
+        "size" : 28,
         "colorSelected" : "#6570A1FF",
         "font" : "JetBrains Mono Regular Nerd Font Complete Mono",
         "color" : "#B9C6FFFF"
@@ -43,11 +43,11 @@
     "window" : {
       "color" : "#202334FF",
       "paddingHorizontal" : 10,
-      "width" : 600,
+      "width" : 548,
       "borderPadding" : 4,
       "borderColor" : "#858CBB7F",
       "blur" : 0,
-      "roundness" : 14,
+      "roundness" : 13,
       "paddingVertical" : 10
     },
     "credit" : "enkia",
