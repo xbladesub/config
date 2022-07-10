@@ -1,227 +1,237 @@
 lvim.builtin.nvimtree.setup.view.preserve_window_proportions = true
 -- lvim.builtin.nvimtree.setup.actions.open_file.resize_window = true
 
+require("nvim-treesitter.configs").setup {
+	-- autopairs = { enable = true },
+	rainbow = {
+		enable = true,
+		extended_mode = true,
+		max_file_lines = nil
+	}
+}
+lvim.builtin.treesitter.rainbow.enable = true
+
 local settings = require("settings")
 settings.setOptions()
 settings.setKeymaps()
 
-lvim.builtin.dap = {
-	active = true,
-	on_config_done = nil,
-	breakpoint = {
-		text = "",
-		texthl = "lspdiagnosticssignerror",
-		linehl = "",
-		numhl = "",
-	},
-	breakpoint_rejected = {
-		text = "",
-		texthl = "lspdiagnosticssignhint",
-		linehl = "",
-		numhl = "",
-	},
-	stopped = {
-		text = "",
-		texthl = "lspdiagnosticssigninformation",
-		linehl = "diagnosticunderlineinfo",
-		numhl = "lspdiagnosticssigninformation",
-	},
-}
+-- lvim.builtin.dap = {
+-- 	active = true,
+-- 	on_config_done = nil,
+-- 	breakpoint = {
+-- 		text = "",
+-- 		texthl = "lspdiagnosticssignerror",
+-- 		linehl = "",
+-- 		numhl = "",
+-- 	},
+-- 	breakpoint_rejected = {
+-- 		text = "",
+-- 		texthl = "lspdiagnosticssignhint",
+-- 		linehl = "",
+-- 		numhl = "",
+-- 	},
+-- 	stopped = {
+-- 		text = "",
+-- 		texthl = "lspdiagnosticssigninformation",
+-- 		linehl = "diagnosticunderlineinfo",
+-- 		numhl = "lspdiagnosticssigninformation",
+-- 	},
+-- }
 
-local dap = require "dap"
+-- local dap = require "dap"
 -- dap.set_log_level('TRACE')
 
-if lvim.use_icons then
-	vim.fn.sign_define("DapBreakpoint", lvim.builtin.dap.breakpoint)
-	vim.fn.sign_define("DapBreakpointRejected", lvim.builtin.dap.breakpoint_rejected)
-	vim.fn.sign_define("DapStopped", lvim.builtin.dap.stopped)
-end
+-- if lvim.use_icons then
+-- 	vim.fn.sign_define("DapBreakpoint", lvim.builtin.dap.breakpoint)
+-- 	vim.fn.sign_define("DapBreakpointRejected", lvim.builtin.dap.breakpoint_rejected)
+-- 	vim.fn.sign_define("DapStopped", lvim.builtin.dap.stopped)
+-- end
 
 
-lvim.builtin.which_key.mappings["d"] = {
-	name = "Debug",
-	t = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },
-	b = { "<cmd>lua require'dap'.step_back()<cr>", "Step Back" },
-	c = { "<cmd>lua require'dap'.continue()<cr>", "Continue" },
-	C = { "<cmd>lua require'dap'.run_to_cursor()<cr>", "Run To Cursor" },
-	d = { "<cmd>lua require'dap'.disconnect()<cr>", "Disconnect" },
-	g = { "<cmd>lua require'dap'.session()<cr>", "Get Session" },
-	i = { "<cmd>lua require'dap'.step_into()<cr>", "Step Into" },
-	o = { "<cmd>lua require'dap'.step_over()<cr>", "Step Over" },
-	u = { "<cmd>lua require'dap'.step_out()<cr>", "Step Out" },
-	p = { "<cmd>lua require'dap'.pause()<cr>", "Pause" },
-	r = { "<cmd>lua require'dap'.repl.toggle()<cr>", "Toggle Repl" },
-	s = { "<cmd>lua require'dap'.continue()<cr>", "Start" },
-	q = { "<cmd>lua require'dap'.close()<cr>", "Quit" },
-}
+-- lvim.builtin.which_key.mappings["d"] = {
+-- 	name = "Debug",
+-- 	t = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },
+-- 	b = { "<cmd>lua require'dap'.step_back()<cr>", "Step Back" },
+-- 	c = { "<cmd>lua require'dap'.continue()<cr>", "Continue" },
+-- 	C = { "<cmd>lua require'dap'.run_to_cursor()<cr>", "Run To Cursor" },
+-- 	d = { "<cmd>lua require'dap'.disconnect()<cr>", "Disconnect" },
+-- 	g = { "<cmd>lua require'dap'.session()<cr>", "Get Session" },
+-- 	i = { "<cmd>lua require'dap'.step_into()<cr>", "Step Into" },
+-- 	o = { "<cmd>lua require'dap'.step_over()<cr>", "Step Over" },
+-- 	u = { "<cmd>lua require'dap'.step_out()<cr>", "Step Out" },
+-- 	p = { "<cmd>lua require'dap'.pause()<cr>", "Pause" },
+-- 	r = { "<cmd>lua require'dap'.repl.toggle()<cr>", "Toggle Repl" },
+-- 	s = { "<cmd>lua require'dap'.continue()<cr>", "Start" },
+-- 	q = { "<cmd>lua require'dap'.close()<cr>", "Quit" },
+-- }
 
-if lvim.builtin.dap.on_config_done then
-	lvim.builtin.dap.on_config_done(dap)
-end
+-- if lvim.builtin.dap.on_config_done then
+-- 	lvim.builtin.dap.on_config_done(dap)
+-- end
 
 local libLLDB = require("settings").libLLDB
 
-local cmd_codelldb = "/Users/nshv/.vscode/extensions/vadimcn.vscode-lldb-1.7.0/adapter/codelldb"
+-- local cmd_codelldb = "/Users/nshv/.vscode/extensions/vadimcn.vscode-lldb-1.7.0/adapter/codelldb"
 
-dap.adapters.codelldb_swift = function(on_adapter)
+-- dap.adapters.codelldb_swift = function(on_adapter)
 
-	vim.cmd_codelldb [[!swift build]]
+-- 	vim.cmd_codelldb [[!swift build]]
 
-	-- This asks the system for a free port
-	local tcp = vim.loop.new_tcp()
-	tcp:bind("127.0.0.1", 0)
-	local port = tcp:getsockname().port
-	tcp:shutdown()
-	tcp:close()
+-- 	-- This asks the system for a free port
+-- 	local tcp = vim.loop.new_tcp()
+-- 	tcp:bind("127.0.0.1", 0)
+-- 	local port = tcp:getsockname().port
+-- 	tcp:shutdown()
+-- 	tcp:close()
 
-	-- Start codelldb with the port
-	local stdout = vim.loop.new_pipe(false)
-	local stderr = vim.loop.new_pipe(false)
-	local opts = {
-		stdio = { nil, stdout, stderr },
-		args = { "--liblldb", libLLDB, "--port", tostring(port) }
-	}
-	local handle
-	local pid_or_err
-	handle, pid_or_err = vim.loop.spawn(
-		cmd_codelldb,
-		opts,
-		function(code)
-			stdout:close()
-			stderr:close()
-			handle:close()
-			if code ~= 0 then
-				print("codelldb exited with code", code)
-			end
-		end
-	)
-	if not handle then
-		vim.notify("Error running codelldb: " .. tostring(pid_or_err), vim.log.levels.ERROR)
-		stdout:close()
-		stderr:close()
-		return
-	end
-	vim.notify("codelldb started. pid=" .. pid_or_err)
-	stderr:read_start(
-		function(err, chunk)
-			assert(not err, err)
-			if chunk then
-				vim.schedule(
-					function()
-						require("dap.repl").append(chunk)
-					end
-				)
-			end
-		end
-	)
-	local adapter = {
-		type = "server",
-		host = "127.0.0.1",
-		port = port
-	}
-	-- 💀
-	-- Wait for codelldb to get ready and start listening before telling nvim-dap to connect
-	-- If you get connect errors, try to increase 500 to a higher value, or check the stderr (Open the REPL)
-	vim.defer_fn(
-		function()
-			on_adapter(adapter)
-		end,
-		800
-	)
-end
+-- 	-- Start codelldb with the port
+-- 	local stdout = vim.loop.new_pipe(false)
+-- 	local stderr = vim.loop.new_pipe(false)
+-- 	local opts = {
+-- 		stdio = { nil, stdout, stderr },
+-- 		args = { "--liblldb", libLLDB, "--port", tostring(port) }
+-- 	}
+-- 	local handle
+-- 	local pid_or_err
+-- 	handle, pid_or_err = vim.loop.spawn(
+-- 		cmd_codelldb,
+-- 		opts,
+-- 		function(code)
+-- 			stdout:close()
+-- 			stderr:close()
+-- 			handle:close()
+-- 			if code ~= 0 then
+-- 				print("codelldb exited with code", code)
+-- 			end
+-- 		end
+-- 	)
+-- 	if not handle then
+-- 		vim.notify("Error running codelldb: " .. tostring(pid_or_err), vim.log.levels.ERROR)
+-- 		stdout:close()
+-- 		stderr:close()
+-- 		return
+-- 	end
+-- 	vim.notify("codelldb started. pid=" .. pid_or_err)
+-- 	stderr:read_start(
+-- 		function(err, chunk)
+-- 			assert(not err, err)
+-- 			if chunk then
+-- 				vim.schedule(
+-- 					function()
+-- 						require("dap.repl").append(chunk)
+-- 					end
+-- 				)
+-- 			end
+-- 		end
+-- 	)
+-- 	local adapter = {
+-- 		type = "server",
+-- 		host = "127.0.0.1",
+-- 		port = port
+-- 	}
+-- 	-- 💀
+-- 	-- Wait for codelldb to get ready and start listening before telling nvim-dap to connect
+-- 	-- If you get connect errors, try to increase 500 to a higher value, or check the stderr (Open the REPL)
+-- 	vim.defer_fn(
+-- 		function()
+-- 			on_adapter(adapter)
+-- 		end,
+-- 		800
+-- 	)
+-- end
 
-dap.adapters.codelldb_rust = function(on_adapter)
+-- dap.adapters.codelldb_rust = function(on_adapter)
 
-	-- This asks the system for a free port
-	local tcp = vim.loop.new_tcp()
-	tcp:bind("127.0.0.1", 0)
-	local port = tcp:getsockname().port
-	tcp:shutdown()
-	tcp:close()
+-- 	-- This asks the system for a free port
+-- 	local tcp = vim.loop.new_tcp()
+-- 	tcp:bind("127.0.0.1", 0)
+-- 	local port = tcp:getsockname().port
+-- 	tcp:shutdown()
+-- 	tcp:close()
 
-	-- Start codelldb with the port
-	local stdout = vim.loop.new_pipe(false)
-	local stderr = vim.loop.new_pipe(false)
-	local opts = {
-		stdio = { nil, stdout, stderr },
-		args = { "--liblldb", libLLDB, "--port", tostring(port) }
-	}
-	local handle
-	local pid_or_err
-	handle, pid_or_err = vim.loop.spawn(
-		cmd_codelldb,
-		opts,
-		function(code)
-			stdout:close()
-			stderr:close()
-			handle:close()
-			if code ~= 0 then
-				print("codelldb exited with code", code)
-			end
-		end
-	)
-	if not handle then
-		vim.notify("Error running codelldb: " .. tostring(pid_or_err), vim.log.levels.ERROR)
-		stdout:close()
-		stderr:close()
-		return
-	end
-	vim.notify("codelldb started. pid=" .. pid_or_err)
-	stderr:read_start(
-		function(err, chunk)
-			assert(not err, err)
-			if chunk then
-				vim.schedule(
-					function()
-						require("dap.repl").append(chunk)
-					end
-				)
-			end
-		end
-	)
-	local adapter = {
-		type = "server",
-		host = "127.0.0.1",
-		port = port
-	}
-	-- 💀
-	-- Wait for codelldb to get ready and start listening before telling nvim-dap to connect
-	-- If you get connect errors, try to increase 500 to a higher value, or check the stderr (Open the REPL)
-	vim.defer_fn(
-		function()
-			on_adapter(adapter)
-		end,
-		800
-	)
-end
+-- 	-- Start codelldb with the port
+-- 	local stdout = vim.loop.new_pipe(false)
+-- 	local stderr = vim.loop.new_pipe(false)
+-- 	local opts = {
+-- 		stdio = { nil, stdout, stderr },
+-- 		args = { "--liblldb", libLLDB, "--port", tostring(port) }
+-- 	}
+-- 	local handle
+-- 	local pid_or_err
+-- 	handle, pid_or_err = vim.loop.spawn(
+-- 		cmd_codelldb,
+-- 		opts,
+-- 		function(code)
+-- 			stdout:close()
+-- 			stderr:close()
+-- 			handle:close()
+-- 			if code ~= 0 then
+-- 				print("codelldb exited with code", code)
+-- 			end
+-- 		end
+-- 	)
+-- 	if not handle then
+-- 		vim.notify("Error running codelldb: " .. tostring(pid_or_err), vim.log.levels.ERROR)
+-- 		stdout:close()
+-- 		stderr:close()
+-- 		return
+-- 	end
+-- 	vim.notify("codelldb started. pid=" .. pid_or_err)
+-- 	stderr:read_start(
+-- 		function(err, chunk)
+-- 			assert(not err, err)
+-- 			if chunk then
+-- 				vim.schedule(
+-- 					function()
+-- 						require("dap.repl").append(chunk)
+-- 					end
+-- 				)
+-- 			end
+-- 		end
+-- 	)
+-- 	local adapter = {
+-- 		type = "server",
+-- 		host = "127.0.0.1",
+-- 		port = port
+-- 	}
+-- 	-- 💀
+-- 	-- Wait for codelldb to get ready and start listening before telling nvim-dap to connect
+-- 	-- If you get connect errors, try to increase 500 to a higher value, or check the stderr (Open the REPL)
+-- 	vim.defer_fn(
+-- 		function()
+-- 			on_adapter(adapter)
+-- 		end,
+-- 		800
+-- 	)
+-- end
 
-dap.configurations.swift = {
-	{
-		type = "codelldb_swift",
-		request = "launch",
-		name = "DEBUG",
-		program = function()
-			return "${workspaceFolder}/.build/debug/" .. vim.fn.substitute(vim.fn.getcwd(), '^.*/', '', '')
-		end,
-		cwd = "${workspaceFolder}",
-		liblldb = libLLDB,
-		stopOnEntry = false,
-	},
-}
+-- dap.configurations.swift = {
+-- 	{
+-- 		type = "codelldb_swift",
+-- 		request = "launch",
+-- 		name = "DEBUG",
+-- 		program = function()
+-- 			return "${workspaceFolder}/.build/debug/" .. vim.fn.substitute(vim.fn.getcwd(), '^.*/', '', '')
+-- 		end,
+-- 		cwd = "${workspaceFolder}",
+-- 		liblldb = libLLDB,
+-- 		stopOnEntry = false,
+-- 	},
+-- }
 
-dap.configurations.rust = {
-	{
-		type = "codelldb_rust",
-		request = "launch",
-		name = "DEBUG",
-		program = function()
-			return "${workspaceFolder}/target/debug/" .. vim.fn.substitute(vim.fn.getcwd(), '^.*/', '', '')
-		end,
-		cwd = "${workspaceFolder}",
-		liblldb = libLLDB,
-		stopOnEntry = false,
-	},
-}
+-- dap.configurations.rust = {
+-- 	{
+-- 		type = "codelldb_rust",
+-- 		request = "launch",
+-- 		name = "DEBUG",
+-- 		program = function()
+-- 			return "${workspaceFolder}/target/debug/" .. vim.fn.substitute(vim.fn.getcwd(), '^.*/', '', '')
+-- 		end,
+-- 		cwd = "${workspaceFolder}",
+-- 		liblldb = libLLDB,
+-- 		stopOnEntry = false,
+-- 	},
+-- }
 
 require("rust-tools").setup {
 	tools = {
@@ -230,12 +240,17 @@ require("rust-tools").setup {
             autocmd BufEnter,CursorHold,InsertLeave,BufWritePost *.rs silent! lua vim.lsp.codelens.refresh()
           ]]
 		end,
+		autoSetHints = true,
+		hover_with_actions = true,
+		runnables = {
+			use_telescope = true,
+		},
 	},
 	server = {
-		on_attach = function()
-			vim.cmd [[SymbolsOutlineOpen]]
-		end,
-		-- capabilities = require("user.lsp.handlers").capabilities,
+		-- on_attach = function()
+		-- 	vim.cmd [[SymbolsOutlineOpen]]
+		-- end,
+		on_init = require("lvim.lsp").common_on_init,
 		settings = {
 			["rust-analyzer"] = {
 				lens = {
@@ -276,7 +291,7 @@ require("rust-tools").setup {
 -- 	},
 -- })
 
-dap.defaults.codelldb.terminal_win_cmd = "split new"
+-- dap.defaults.codelldb.terminal_win_cmd = "split new"
 
 --------------------------------------------------
 
@@ -442,7 +457,7 @@ local opts = { autostart = true } -- check the lspconfig documentation for a lis
 require("lvim.lsp.manager").setup("solidity_ls", opts)
 require("lvim.lsp.manager").setup("kotlin_language_server", opts)
 require("lvim.lsp.manager").setup("sourcekit", opts)
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "solc" })
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "solc"})
 nvim_lsp['solc'].setup {
 	autostart = true,
 	cmd = { "/opt/homebrew/bin/solc", "--lsp" },
@@ -519,17 +534,14 @@ lvim.plugins = {
 		run = "./install.sh",
 		requires = "hrsh7th/nvim-cmp"
 	},
-	{
-		"Pocco81/dap-buddy.nvim",
-		branch = "dev",
-	},
-	{
-		"rcarriga/nvim-dap-ui",
-		requires = { "dap" }
-	},
-	{
-		"theHamsta/nvim-dap-virtual-text",
-	},
+	-- {
+	-- 	"Pocco81/dap-buddy.nvim",
+	-- 	branch = "dev",
+	-- },
+	-- {
+	-- 	"rcarriga/nvim-dap-ui",
+	-- 	requires = { "dap" }
+	-- },
 	{
 		"simrat39/rust-tools.nvim"
 	},
@@ -542,39 +554,30 @@ lvim.plugins = {
 	}
 }
 
-require("nvim-dap-virtual-text").setup({
-	enabled = true,
-	enabled_commands = true,
-	highlight_changed_variables = true,
-	highlight_new_as_changed = false,
-	show_stop_reason = true,
-	commented = false,
-})
+-- local dapui = require("dapui")
 
-local dapui = require("dapui")
+-- dapui.setup({
+-- sidebar = {
+-- 	elements = {
+-- 		{ id = "scopes", size = 0.25 },
+-- 		{ id = "breakpoints", size = 0.25 },
+-- 		{ id = "stacks", size = 0.25 },
+-- 		--{ id = "watches", size = 0.50 },
+-- 	},
+-- 	size = 70,
+-- 	position = "left",
+-- },
+-- })
 
-dapui.setup({
-	-- sidebar = {
-	-- 	elements = {
-	-- 		{ id = "scopes", size = 0.25 },
-	-- 		{ id = "breakpoints", size = 0.25 },
-	-- 		{ id = "stacks", size = 0.25 },
-	-- 		--{ id = "watches", size = 0.50 },
-	-- 	},
-	-- 	size = 70,
-	-- 	position = "left",
-	-- },
-})
-
-dap.listeners.after.event_initialized["dapui_config"] = function()
-	dapui.open()
-end
-dap.listeners.before.event_terminated["dapui_config"] = function()
-	dapui.close()
-end
-dap.listeners.before.event_exited["dapui_config"] = function()
-	dapui.close()
-end
+-- dap.listeners.after.event_initialized["dapui_config"] = function()
+-- 	dapui.open()
+-- end
+-- dap.listeners.before.event_terminated["dapui_config"] = function()
+-- 	dapui.close()
+-- end
+-- dap.listeners.before.event_exited["dapui_config"] = function()
+-- 	dapui.close()
+-- end
 
 require "surround".setup {
 	context_offset = 100,
@@ -651,15 +654,6 @@ wilder.set_option('renderer', wilder.renderer_mux({
 
 lvim.builtin.project.patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "Package.swift", ".xcworkspace", ".xcodeproj", "Cargo.toml" }
 lvim.builtin.project.show_hidden = true
-
-require("nvim-treesitter.configs").setup {
-	-- autopairs = { enable = true },
-	rainbow = {
-		enable = true,
-		extended_mode = true,
-		max_file_lines = nil
-	}
-}
 
 require 'swift_env'.setup {
 	--- Normal/Visual Mode leader key
