@@ -1,5 +1,6 @@
 lvim.builtin.nvimtree.setup.view.preserve_window_proportions = true
 -- lvim.builtin.nvimtree.setup.actions.open_file.resize_window = true
+lvim.builtin.terminal.direction = "horizontal"
 
 require("nvim-treesitter.configs").setup {
 	-- autopairs = { enable = true },
