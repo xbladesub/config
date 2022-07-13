@@ -60,7 +60,7 @@ function Settings.setOptions()
 	vim.wo.number = true
 	o.updatetime = 200
 	o.encoding = "utf8"
-	o.cmdheight = 2
+	o.cmdheight = 1
 	o.winfixwidth = true
 	o.linespace = 20
 

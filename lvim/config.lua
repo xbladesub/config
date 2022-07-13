@@ -2,6 +2,9 @@ lvim.builtin.nvimtree.setup.view.preserve_window_proportions = true
 -- lvim.builtin.nvimtree.setup.actions.open_file.resize_window = true
 lvim.builtin.terminal.direction = "horizontal"
 
+lvim.builtin.cmp.experimental.ghost_text = false
+vim.g.copilot_assume_mapped = true
+
 require("nvim-treesitter.configs").setup {
 	-- autopairs = { enable = true },
 	rainbow = {
@@ -458,7 +461,7 @@ local opts = { autostart = true } -- check the lspconfig documentation for a lis
 require("lvim.lsp.manager").setup("solidity_ls", opts)
 require("lvim.lsp.manager").setup("kotlin_language_server", opts)
 require("lvim.lsp.manager").setup("sourcekit", opts)
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "solc"})
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "solc" })
 nvim_lsp['solc'].setup {
 	autostart = true,
 	cmd = { "/opt/homebrew/bin/solc", "--lsp" },
@@ -479,6 +482,13 @@ formatters.setup {
 	},
 }
 
+local linters = require "lvim.lsp.null-ls.linters"
+linters.setup  {
+	{
+		command = "swiftlint",
+		filetypes = { "swift" },
+	}
+}
 
 -- Additional Plugins
 lvim.plugins = {
@@ -552,6 +562,9 @@ lvim.plugins = {
 	},
 	{
 		"pechorin/any-jump.vim"
+	},
+	{
+		"github/copilot.vim"
 	}
 }
 
