@@ -1,10 +1,10 @@
-<scheme name="One Dark copy5" version="142" parent_scheme="Darcula">
+<scheme name="One Dark copy6" version="142" parent_scheme="Darcula">
   <metaInfo>
-    <property name="created">2022-06-24T11:18:45</property>
+    <property name="created">2022-07-14T11:30:00</property>
     <property name="ide">AndroidStudio</property>
     <property name="ideVersion">2021.2.1.15</property>
-    <property name="modified">2022-06-24T11:19:26</property>
-    <property name="originalScheme">One Dark copy5</property>
+    <property name="modified">2022-07-14T11:30:10</property>
+    <property name="originalScheme">One Dark copy6</property>
   </metaInfo>
   <colors>
     <option name="ADDED_LINES_COLOR" value="98c379" />
@@ -16,7 +16,7 @@
     <option name="BookmarkMnemonicIcon.borderColor" value="568af2" />
     <option name="BookmarkMnemonicIcon.foreground" value="a0a7b4" />
     <option name="CARET_COLOR" value="528bff" />
-    <option name="CARET_ROW_COLOR" value="232433" />
+    <option name="CARET_ROW_COLOR" value="2c313c" />
     <option name="CONSOLE_BACKGROUND_KEY" value="" />
     <option name="DELETED_LINES_COLOR" value="e06c75" />
     <option name="DIAGRAM_ANNOTATION_EDGE" value="e5c07b" />
@@ -33,7 +33,7 @@
     <option name="ERROR_HINT" value="781732" />
     <option name="FILESTATUS_IDEA_FILESTATUS_IGNORED" value="4f575f" />
     <option name="FOLDED_TEXT_BORDER_COLOR" value="" />
-    <option name="GUTTER_BACKGROUND" value="1a1b26" />
+    <option name="GUTTER_BACKGROUND" value="282c34" />
     <option name="HTML_TAG_TREE_LEVEL0" value="f44747" />
     <option name="HTML_TAG_TREE_LEVEL1" value="e5c07b" />
     <option name="HTML_TAG_TREE_LEVEL2" value="98c379" />
@@ -46,7 +46,7 @@
     <option name="JUPYTER.CODE_CELL_BACKGROUND" value="2d3139" />
     <option name="JUPYTER.GUTTER_INPUT_EXECUTION_COUNT" value="568af2" />
     <option name="JUPYTER.SAUSAGE_BUTTON_BORDER_COLOR" value="333841" />
-    <option name="LINE_NUMBERS_COLOR" value="58c5db" />
+    <option name="LINE_NUMBERS_COLOR" value="495162" />
     <option name="LINE_NUMBER_ON_CARET_ROW_COLOR" value="737984" />
     <option name="LOOKUP_COLOR" value="21252b" />
     <option name="METHOD_SEPARATORS_COLOR" value="3b4048" />
@@ -1256,6 +1256,7 @@
     <option name="KOTLIN_TYPE_ALIAS">
       <value>
         <option name="FOREGROUND" value="e5c07b" />
+        <option name="FONT_TYPE" value="2" />
       </value>
     </option>
     <option name="KOTLIN_TYPE_PARAMETER">
@@ -2119,7 +2120,7 @@
     <option name="TEXT">
       <value>
         <option name="FOREGROUND" value="abb2bf" />
-        <option name="BACKGROUND" value="1a1b26" />
+        <option name="BACKGROUND" value="282c34" />
       </value>
     </option>
     <option name="TEXT_SEARCH_RESULT_ATTRIBUTES">

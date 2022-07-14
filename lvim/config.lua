@@ -1,10 +1,8 @@
 lvim.builtin.nvimtree.setup.view.preserve_window_proportions = true
 -- lvim.builtin.nvimtree.setup.actions.open_file.resize_window = true
 lvim.builtin.terminal.direction = "horizontal"
-
+-- vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
 lvim.builtin.cmp.experimental.ghost_text = false
-vim.g.copilot_assume_mapped = true
-vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
 require("nvim-treesitter.configs").setup {
 	-- autopairs = { enable = true },
 	rainbow = {
@@ -14,6 +12,28 @@ require("nvim-treesitter.configs").setup {
 	}
 }
 lvim.builtin.treesitter.rainbow.enable = true
+local cmp = require("cmp")
+lvim.builtin.cmp.mapping = {
+	["<Tab>"] = cmp.mapping(function(fallback)
+		local copilot_keys = vim.fn["copilot#Accept"]("")
+		if copilot_keys ~= "" then
+			vim.api.nvim_feedkeys(copilot_keys, "i", false)
+		elseif cmp.visible() then
+			cmp.select_next_item()
+			-- elseif luasnip.expandable() then
+			-- 	luasnip.expand()
+			-- elseif luasnip.expand_or_jumpable() then
+			-- 	luasnip.expand_or_jump()
+			-- elseif check_backspace() then
+			-- 	fallback()
+		else
+			fallback()
+		end
+	end, {
+		"i",
+		"s",
+	}),
+}
 
 local settings = require("settings")
 settings.setOptions()
@@ -431,7 +451,7 @@ lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.view.relativenumber = true
 lvim.builtin.nvimtree.setup.view.auto_resize = true
-lvim.builtin.nvimtree.setup.view.width = 50
+lvim.builtin.nvimtree.setup.view.width = 40
 -- lvim.builtin.nvimtree.show_icons.git = 0
 
 -- if you don't want all the parsers change this to a table of the ones yosru want
@@ -486,15 +506,14 @@ formatters.setup {
 
 -- Additional Plugins
 lvim.plugins = {
-	{ "navarasu/onedark.nvim" },
 	{ "gelguy/wilder.nvim" },
+	{ "navarasu/onedark.nvim" },
 	{ "nixprime/cpsm" },
 	{ "romgrk/fzy-lua-native" },
 	{ "p00f/nvim-ts-rainbow" },
 	{ "simrat39/symbols-outline.nvim" },
 	{ "udalov/kotlin-vim" },
 	{ "rmagatti/auto-session" },
-	{ "ThePrimeagen/harpoon" },
 	{ "sindrets/diffview.nvim" },
 	{
 		"rmagatti/session-lens",
@@ -525,20 +544,20 @@ lvim.plugins = {
 	{
 		'LunarVim/vim-solidity'
 	},
-	{
-		'tzachar/cmp-tabnine',
-		config = function()
-			local tabnine = require "cmp_tabnine.config"
-			tabnine:setup {
-				max_lines = 1000,
-				max_num_results = 20,
-				sort = true
-			}
-		end,
+	-- {
+	-- 	'tzachar/cmp-tabnine',
+	-- 	config = function()
+	-- 		local tabnine = require "cmp_tabnine.config"
+	-- 		tabnine:setup {
+	-- 			max_lines = 1000,
+	-- 			max_num_results = 20,
+	-- 			sort = true
+	-- 		}
+	-- 	end,
 
-		run = "./install.sh",
-		requires = "hrsh7th/nvim-cmp"
-	},
+	-- 	run = "./install.sh",
+	-- 	requires = "hrsh7th/nvim-cmp"
+	-- },
 	-- {
 	-- 	"Pocco81/dap-buddy.nvim",
 	-- 	branch = "dev",
@@ -558,13 +577,12 @@ lvim.plugins = {
 		"pechorin/any-jump.vim"
 	},
 	{
-		"github/copilot.vim"
-	},
-	{
 		"dense-analysis/ale"
-	}
+	},
+	-- {
+	-- 	"github/copilot.vim"
+	-- },
 }
-
 -- local dapui = require("dapui")
 
 -- dapui.setup({
@@ -766,7 +784,7 @@ require('auto-session').setup {
 }
 
 require("telescope").load_extension("session-lens")
-require("telescope").load_extension('harpoon')
+-- require("telescope").load_extension('harpoon')
 require('session-lens').setup {
 	prompt_title = 'SESSIONS',
 }
@@ -794,7 +812,7 @@ vim.cmd [[let g:ale_fixers = {'swift': ['swiftformat']}]]
 
 local path_ok, plenary_path = pcall(require, "plenary.path")
 if not path_ok then
-    return
+	return
 end
 
 local dashboard = require "alpha.themes.dashboard"
@@ -803,168 +821,168 @@ local cdir = vim.fn.getcwd()
 local if_nil = vim.F.if_nil
 
 local function get_extension(fn)
-    local match = fn:match "^.+(%..+)$"
-    local ext = ""
-    if match ~= nil then
-        ext = match:sub(2)
-    end
-    return ext
+	local match = fn:match "^.+(%..+)$"
+	local ext = ""
+	if match ~= nil then
+		ext = match:sub(2)
+	end
+	return ext
 end
 
 local function icon(fn)
-    local nwd = require "nvim-web-devicons"
-    local ext = get_extension(fn)
-    return nwd.get_icon(fn, ext, { default = true })
+	local nwd = require "nvim-web-devicons"
+	local ext = get_extension(fn)
+	return nwd.get_icon(fn, ext, { default = true })
 end
 
 local function file_button(fn, sc, short_fn)
-    short_fn = short_fn or fn
-    local ico_txt
-    local fb_hl = {}
+	short_fn = short_fn or fn
+	local ico_txt
+	local fb_hl = {}
 
-    if lvim.use_icons then
-        local ico, hl = icon(fn)
-        table.insert(fb_hl, { hl, 0, 3 })
-        ico_txt = ico .. "  "
-    else
-        ico_txt = ""
-    end
-    local file_button_el = dashboard.button(sc, ico_txt .. short_fn, "<cmd>e " .. fn .. " <CR>")
-    local fn_start = short_fn:match ".*[/\\]"
-    if fn_start ~= nil then
-        table.insert(fb_hl, { "Comment", #ico_txt - 2, #fn_start + #ico_txt })
-    end
-    file_button_el.opts.hl = fb_hl
-    return file_button_el
+	if lvim.use_icons then
+		local ico, hl = icon(fn)
+		table.insert(fb_hl, { hl, 0, 3 })
+		ico_txt = ico .. "  "
+	else
+		ico_txt = ""
+	end
+	local file_button_el = dashboard.button(sc, ico_txt .. short_fn, "<cmd>e " .. fn .. " <CR>")
+	local fn_start = short_fn:match ".*[/\\]"
+	if fn_start ~= nil then
+		table.insert(fb_hl, { "Comment", #ico_txt - 2, #fn_start + #ico_txt })
+	end
+	file_button_el.opts.hl = fb_hl
+	return file_button_el
 end
 
 local default_mru_ignore = { "gitcommit" }
 
 local mru_opts = {
-    ignore = function(path, ext)
-        return (string.find(path, "COMMIT_EDITMSG")) or (vim.tbl_contains(default_mru_ignore, ext))
-    end,
+	ignore = function(path, ext)
+		return (string.find(path, "COMMIT_EDITMSG")) or (vim.tbl_contains(default_mru_ignore, ext))
+	end,
 }
 
 --- @param start number
 --- @param cwd string optional
 --- @param items_number number optional number of items to generate, default = 10
 local function mru(start, cwd, items_number, opts)
-    opts = opts or mru_opts
-    items_number = if_nil(items_number, 10)
+	opts = opts or mru_opts
+	items_number = if_nil(items_number, 10)
 
-    local oldfiles = {}
-    for _, v in pairs(vim.v.oldfiles) do
-        if #oldfiles == items_number then
-            break
-        end
-        local cwd_cond
-        if not cwd then
-            cwd_cond = true
-        else
-            cwd_cond = vim.startswith(v, cwd)
-        end
-        local ignore = (opts.ignore and opts.ignore(v, get_extension(v))) or false
-        if (vim.fn.filereadable(v) == 1) and cwd_cond and not ignore then
-            oldfiles[#oldfiles + 1] = v
-        end
-    end
-    local target_width = 35
+	local oldfiles = {}
+	for _, v in pairs(vim.v.oldfiles) do
+		if #oldfiles == items_number then
+			break
+		end
+		local cwd_cond
+		if not cwd then
+			cwd_cond = true
+		else
+			cwd_cond = vim.startswith(v, cwd)
+		end
+		local ignore = (opts.ignore and opts.ignore(v, get_extension(v))) or false
+		if (vim.fn.filereadable(v) == 1) and cwd_cond and not ignore then
+			oldfiles[#oldfiles + 1] = v
+		end
+	end
+	local target_width = 35
 
-    local tbl = {}
-    for i, fn in ipairs(oldfiles) do
-        local short_fn
-        if cwd then
-            short_fn = vim.fn.fnamemodify(fn, ":.")
-        else
-            short_fn = vim.fn.fnamemodify(fn, ":~")
-        end
+	local tbl = {}
+	for i, fn in ipairs(oldfiles) do
+		local short_fn
+		if cwd then
+			short_fn = vim.fn.fnamemodify(fn, ":.")
+		else
+			short_fn = vim.fn.fnamemodify(fn, ":~")
+		end
 
-        if #short_fn > target_width then
-            short_fn = plenary_path.new(short_fn):shorten(1, { -2, -1 })
-            if #short_fn > target_width then
-                short_fn = plenary_path.new(short_fn):shorten(1, { -1 })
-            end
-        end
+		if #short_fn > target_width then
+			short_fn = plenary_path.new(short_fn):shorten(1, { -2, -1 })
+			if #short_fn > target_width then
+				short_fn = plenary_path.new(short_fn):shorten(1, { -1 })
+			end
+		end
 
-        local shortcut = tostring(i + start - 1)
+		local shortcut = tostring(i + start - 1)
 
-        local file_button_el = file_button(fn, shortcut, short_fn)
-        tbl[i] = file_button_el
-    end
-    return {
-        type = "group",
-        val = tbl,
-        opts = {},
-    }
+		local file_button_el = file_button(fn, shortcut, short_fn)
+		tbl[i] = file_button_el
+	end
+	return {
+		type = "group",
+		val = tbl,
+		opts = {},
+	}
 end
 
 local default_header = {
-    type = "text",
-    val = {
-[[ ##    ##  ######  ##     ## ##     ##  ]],
-[[ ###   ## ##    ## ##     ## ##     ##  ]],
-[[ ####  ## ##       ##     ## ##     ##  ]],
-[[ ## ## ##  ######  ######### ##     ##  ]],
-[[ ##  ####       ## ##     ##  ##   ##   ]],
-[[ ##   ### ##    ## ##     ##   ## ##    ]],
-[[ ##    ##  ######  ##     ##    ###     ]],
-    },
-    opts = {
-        position = "center",
-        hl = "Label",
-    },
+	type = "text",
+	val = {
+		[[ ##    ##  ######  ##     ## ##     ##  ]],
+		[[ ###   ## ##    ## ##     ## ##     ##  ]],
+		[[ ####  ## ##       ##     ## ##     ##  ]],
+		[[ ## ## ##  ######  ######### ##     ##  ]],
+		[[ ##  ####       ## ##     ##  ##   ##   ]],
+		[[ ##   ### ##    ## ##     ##   ## ##    ]],
+		[[ ##    ##  ######  ##     ##    ###     ]],
+	},
+	opts = {
+		position = "center",
+		hl = "Label",
+	},
 }
 
 local section_mru = {
-    type = "group",
-    val = {
-        {
-            type = "text",
-            val = "Recent files",
-            opts = {
-                hl = "SpecialComment",
-                shrink_margin = false,
-                position = "center",
-            },
-        },
-        { type = "padding", val = 1 },
-        {
-            type = "group",
-            val = function()
-                return { mru(0, cdir) }
-            end,
-            opts = { shrink_margin = false },
-        },
-    },
+	type = "group",
+	val = {
+		{
+			type = "text",
+			val = "Recent files",
+			opts = {
+				hl = "SpecialComment",
+				shrink_margin = false,
+				position = "center",
+			},
+		},
+		{ type = "padding", val = 1 },
+		{
+			type = "group",
+			val = function()
+				return { mru(0, cdir) }
+			end,
+			opts = { shrink_margin = false },
+		},
+	},
 }
 
 local buttons = {
-    type = "group",
-    val = {
-        dashboard.button("SPC f", "  Find File", ":Telescope find_files<CR>"),
-        dashboard.button("SPC n", "  New File", ":ene!<CR>"),
-        dashboard.button("SPC P", "  Recent Projects ", ":Telescope projects<CR>"),
-        dashboard.button("SPC s r", "  Recently Used Files", ":Telescope oldfiles<CR>"),
-        dashboard.button("SPC s t", "  Find Word", ":Telescope live_grep<CR>"),
-        dashboard.button("SPC L c", "  Configuration", ":edit " .. user_config_path .. "<CR>"),
-    },
-    position = "center",
+	type = "group",
+	val = {
+		dashboard.button("SPC f", "  Find File", ":Telescope find_files<CR>"),
+		dashboard.button("SPC n", "  New File", ":ene!<CR>"),
+		dashboard.button("SPC P", "  Recent Projects ", ":Telescope projects<CR>"),
+		dashboard.button("SPC s r", "  Recently Used Files", ":Telescope oldfiles<CR>"),
+		dashboard.button("SPC s t", "  Find Word", ":Telescope live_grep<CR>"),
+		dashboard.button("SPC L c", "  Configuration", ":edit " .. user_config_path .. "<CR>"),
+	},
+	position = "center",
 }
 
 lvim.builtin.alpha.dashboard.config = {
-    layout = {
-         { type = "padding", val = 5 },
-         default_header,
-         { type = "padding", val = 2 },
-         section_mru,
-         { type = "padding", val = 2 },
-         buttons,
-    },
-    opts = {
-        margin = 5,
-        setup = function()
-            vim.cmd [[autocmd alpha_temp DirChanged * lua require('alpha').redraw()]]
-        end,
-    },
+	layout = {
+		{ type = "padding", val = 5 },
+		default_header,
+		{ type = "padding", val = 2 },
+		section_mru,
+		{ type = "padding", val = 2 },
+		buttons,
+	},
+	opts = {
+		margin = 5,
+		setup = function()
+			vim.cmd [[autocmd alpha_temp DirChanged * lua require('alpha').redraw()]]
+		end,
+	},
 }
