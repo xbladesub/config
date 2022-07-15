@@ -95,6 +95,10 @@ function Settings.setKeymaps()
 	vim.cmd [[nmap zj o<C-[>]]
 	vim.cmd [[nmap zk O<C-[>]]
 
+	vim.keymap.set('i', '<C-,>', '<Plug>(copilot-next)')
+	vim.keymap.set('i', '<C-.>', '<Plug>(copilot-previous)')
+
+	vim.cmd[[highlight CopilotSuggestion guifg=#555555 ctermfg=8]]
 	-- vim.cmd [[nnoremap <Leader>o o<Esc>]]
 	-- vim.cmd [[nnoremap <Leader>O O<Esc>]]
 

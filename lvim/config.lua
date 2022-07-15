@@ -1,7 +1,9 @@
 lvim.builtin.nvimtree.setup.view.preserve_window_proportions = true
 -- lvim.builtin.nvimtree.setup.actions.open_file.resize_window = true
 lvim.builtin.terminal.direction = "horizontal"
+-- vim.g.copilot_no_tab_map = true
 -- vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+
 lvim.builtin.cmp.experimental.ghost_text = false
 require("nvim-treesitter.configs").setup {
 	-- autopairs = { enable = true },
@@ -12,28 +14,28 @@ require("nvim-treesitter.configs").setup {
 	}
 }
 lvim.builtin.treesitter.rainbow.enable = true
-local cmp = require("cmp")
-lvim.builtin.cmp.mapping = {
-	["<Tab>"] = cmp.mapping(function(fallback)
-		local copilot_keys = vim.fn["copilot#Accept"]("")
-		if copilot_keys ~= "" then
-			vim.api.nvim_feedkeys(copilot_keys, "i", false)
-		elseif cmp.visible() then
-			cmp.select_next_item()
-			-- elseif luasnip.expandable() then
-			-- 	luasnip.expand()
-			-- elseif luasnip.expand_or_jumpable() then
-			-- 	luasnip.expand_or_jump()
-			-- elseif check_backspace() then
-			-- 	fallback()
-		else
-			fallback()
-		end
-	end, {
-		"i",
-		"s",
-	}),
-}
+-- local cmp = require("cmp")
+-- lvim.builtin.cmp.mapping = {
+-- 	["<Tab>"] = cmp.mapping(function(fallback)
+-- 		local copilot_keys = vim.fn["copilot#Accept"]("")
+-- 		if copilot_keys ~= "" then
+-- 			vim.api.nvim_feedkeys(copilot_keys, "i", false)
+-- 		elseif cmp.visible() then
+-- 			cmp.select_next_item()
+-- 			-- elseif luasnip.expandable() then
+-- 			-- 	luasnip.expand()
+-- 			-- elseif luasnip.expand_or_jumpable() then
+-- 			-- 	luasnip.expand_or_jump()
+-- 			-- elseif check_backspace() then
+-- 			-- 	fallback()
+-- 		else
+-- 			fallback()
+-- 		end
+-- 	end, {
+-- 		"i",
+-- 		"s",
+-- 	}),
+-- }
 
 local settings = require("settings")
 settings.setOptions()
@@ -93,7 +95,7 @@ settings.setKeymaps()
 -- 	lvim.builtin.dap.on_config_done(dap)
 -- end
 
-local libLLDB = require("settings").libLLDB
+-- local libLLDB = require("settings").libLLDB
 
 -- local cmd_codelldb = "/Users/nshv/.vscode/extensions/vadimcn.vscode-lldb-1.7.0/adapter/codelldb"
 
@@ -483,7 +485,7 @@ local opts = { autostart = true } -- check the lspconfig documentation for a lis
 require("lvim.lsp.manager").setup("solidity_ls", opts)
 require("lvim.lsp.manager").setup("kotlin_language_server", opts)
 require("lvim.lsp.manager").setup("sourcekit", opts)
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "solc" })
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "solc", "rust_analyzer" })
 nvim_lsp['solc'].setup {
 	autostart = true,
 	cmd = { "/opt/homebrew/bin/solc", "--lsp" },
@@ -582,7 +584,56 @@ lvim.plugins = {
 	-- {
 	-- 	"github/copilot.vim"
 	-- },
+	{ "zbirenbaum/copilot.lua",
+		event = { "VimEnter" },
+		config = function()
+			vim.defer_fn(function()
+				require("copilot").setup {
+					plugin_manager_path = get_runtime_dir() .. "/site/pack/packer",
+				}
+			end, 100)
+		end,
+	},
+
+	{ "zbirenbaum/copilot-cmp",
+		after = { "copilot.lua", "nvim-cmp", "dense-analysis/ale"},
+	},
+	-- Can not be placed into the config method of the plugins.
+	-- {
+	-- 	"zbirenbaum/copilot.lua",
+	-- 	event = { "VimEnter" },
+	-- 	config = function()
+	-- 		vim.defer_fn(function()
+	-- 			require("copilot").setup {
+	-- 				cmp = {
+	-- 					enabled = true,
+	-- 					method = "getCompletionsCycling",
+	-- 				},
+	-- 				panel = { -- no config options yet
+	-- 					enabled = true,
+	-- 				},
+	-- 				ft_disable = {},
+	-- 				plugin_manager_path = vim.fn.stdpath("data") .. "/site/pack/packer",
+	-- 				server_opts_overrides = {},
+	-- 			}
+	-- 		end, 100)
+	-- 	end,
+	-- },
+	-- {
+	-- 	"zbirenbaum/copilot-cmp",
+	-- 	-- after = 'copilot.lua'
+	-- 	module = 'copilot_cmp'
+	-- }
 }
+lvim.builtin.cmp.formatting.source_names["copilot"] = "(Copilot)"
+table.insert(lvim.builtin.cmp.sources, 1, { name = "copilot" })
+
+-- require("copilot").setup {
+-- 	cmp = {
+-- 		enabled = true,
+-- 		method = "getCompletionsCycling",
+-- 	}
+-- }
 -- local dapui = require("dapui")
 
 -- dapui.setup({
@@ -789,11 +840,11 @@ require('session-lens').setup {
 	prompt_title = 'SESSIONS',
 }
 
--- if string.match(vim.fn.system('uname -a'), 'mini') then
--- 	vim.o.guifont = "JetBrainsMono Nerd Font Mono:h13"
--- else
--- 	vim.o.guifont = "JetBrainsMono Nerd Font Mono:h12"
--- end
+if string.match(vim.fn.system('uname -a'), 'mini') then
+	vim.o.guifont = "JetBrainsMono Nerd Font Mono:h13"
+else
+	vim.o.guifont = "JetBrainsMono Nerd Font Mono:h12"
+end
 
 -- vim.g.neovide_transparency = 0.75
 vim.g.neovide_cursor_vfx_mode = "ripple"
