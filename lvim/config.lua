@@ -13,6 +13,7 @@ require("nvim-treesitter.configs").setup {
 		max_file_lines = nil
 	}
 }
+
 lvim.builtin.treesitter.rainbow.enable = true
 -- local cmp = require("cmp")
 -- lvim.builtin.cmp.mapping = {
@@ -596,8 +597,11 @@ lvim.plugins = {
 	},
 
 	{ "zbirenbaum/copilot-cmp",
-		after = { "copilot.lua", "nvim-cmp", "dense-analysis/ale"},
+		after = { "copilot.lua", "nvim-cmp", "dense-analysis/ale" },
 	},
+	{
+		"arkav/lualine-lsp-progress",
+	}
 	-- Can not be placed into the config method of the plugins.
 	-- {
 	-- 	"zbirenbaum/copilot.lua",
@@ -627,6 +631,8 @@ lvim.plugins = {
 }
 lvim.builtin.cmp.formatting.source_names["copilot"] = "(Copilot)"
 table.insert(lvim.builtin.cmp.sources, 1, { name = "copilot" })
+
+lvim.builtin.lualine.sections.lualine_c = { 'lsp_progress' }
 
 -- require("copilot").setup {
 -- 	cmp = {
