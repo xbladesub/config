@@ -44,15 +44,15 @@
       "color" : "#383D49FF",
       "paddingHorizontal" : 10,
       "width" : 560,
-      "borderPadding" : 1,
-      "borderColor" : "#E67F857F",
+      "borderPadding" : 0,
+      "borderColor" : "#E5A7C23F",
       "blur" : 40,
       "roundness" : 16,
       "paddingVertical" : 6
     },
     "credit" : "Bojan Dimovski",
     "separator" : {
-      "color" : "#E67F8545",
+      "color" : "#E67F8531",
       "thickness" : 1
     },
     "scrollbar" : {
