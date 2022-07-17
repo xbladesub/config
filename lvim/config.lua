@@ -580,7 +580,8 @@ lvim.plugins = {
 		"pechorin/any-jump.vim"
 	},
 	{
-		"dense-analysis/ale"
+		"dense-analysis/ale",
+		enable = false
 	},
 	-- {
 	-- 	"github/copilot.vim"
