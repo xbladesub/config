@@ -5,7 +5,7 @@
       "subtext" : {
         "size" : 11,
         "colorSelected" : "#90C378FF",
-        "font" : "System",
+        "font" : "JetBrainsMono Nerd Font Mono",
         "color" : "#9FCB8AFF"
       },
       "shortcut" : {
@@ -18,7 +18,7 @@
       "text" : {
         "size" : 16,
         "colorSelected" : "#BBC9D8FF",
-        "font" : "System",
+        "font" : "JetBrainsMono Nerd Font Mono",
         "color" : "#B4BFCBFF"
       },
       "iconPaddingHorizontal" : 5,
