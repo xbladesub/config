@@ -1830,7 +1830,7 @@
 			<key>Badge Text</key>
 			<string></string>
 			<key>Blend</key>
-			<real>0.14999999999999999</real>
+			<real>0.20000000000000001</real>
 			<key>Blink Allowed</key>
 			<true/>
 			<key>Blinking Cursor</key>

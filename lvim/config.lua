@@ -579,10 +579,10 @@ lvim.plugins = {
 	{
 		"pechorin/any-jump.vim"
 	},
-	{
-		"dense-analysis/ale",
-		enable = false
-	},
+	-- {
+	-- 	"dense-analysis/ale",
+	-- 	enable = false
+	-- },
 	{
 		"github/copilot.vim"
 	},
@@ -598,7 +598,11 @@ lvim.plugins = {
 	},
 
 	{ "zbirenbaum/copilot-cmp",
-		after = { "copilot.lua", "nvim-cmp", "dense-analysis/ale" },
+		after = { 
+			"copilot.lua", 
+			"nvim-cmp",
+			-- "dense-analysis/ale" 
+		},
 	},
 	{
 		"arkav/lualine-lsp-progress",
@@ -864,7 +868,7 @@ if vim.bo.filetype == "swift" then
 	require 'swift_env'.attach()
 end
 
-vim.cmd [[let g:ale_fixers = {'swift': ['swiftformat']}]]
+-- vim.cmd [[let g:ale_fixers = {'swift': ['swiftformat']}]]
 
 -- originally authored by @AdamWhittingham
 
