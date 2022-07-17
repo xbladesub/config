@@ -583,9 +583,9 @@ lvim.plugins = {
 		"dense-analysis/ale",
 		enable = false
 	},
-	-- {
-	-- 	"github/copilot.vim"
-	-- },
+	{
+		"github/copilot.vim"
+	},
 	{ "zbirenbaum/copilot.lua",
 		event = { "VimEnter" },
 		config = function()
