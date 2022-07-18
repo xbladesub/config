@@ -1789,13 +1789,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.16862745583057404</real>
+				<real>0.20392156862745098</real>
 				<key>Color Space</key>
-				<string>sRGB</string>
+				<string>P3</string>
 				<key>Green Component</key>
-				<real>0.14509804546833038</real>
+				<real>0.17254901960784313</real>
 				<key>Red Component</key>
-				<real>0.12941177189350128</real>
+				<real>0.15686274509803921</real>
 			</dict>
 			<key>Background Image Location</key>
 			<string>/Users/nshv/Library/Mobile Documents/com~apple~CloudDocs/Wallpapers/400195.jpg</string>
