@@ -1050,3 +1050,4 @@ lvim.builtin.alpha.dashboard.config = {
 		end,
 	},
 }
+vim.lsp.handlers["textDocument/references"] = require("telescope.builtin").lsp_references
