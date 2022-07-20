@@ -7,7 +7,7 @@ nnoremap <space><cr> :nohlsearch<cr>
 nmap zj o<Esc>k
 nmap zk O<Esc>j
 
-
+set highlightedyank
 
 " set ignorecase
 " set smartcase
