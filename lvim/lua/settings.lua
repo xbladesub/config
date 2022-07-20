@@ -92,13 +92,33 @@ function Settings.setKeymaps()
 	vim.cmd [[set shell=zsh]]
 	-- vim.cmd [[autocmd VimEnter,WinEnter * match Cursor /\%#./]]
 	-- " These create newlines like o and O but stay in normal mode
-	vim.cmd [[nmap zj o<C-[>]]
-	vim.cmd [[nmap zk O<C-[>]]
 
-	vim.keymap.set('i', '<C-,>', '<Plug>(copilot-next)')
-	vim.keymap.set('i', '<C-.>', '<Plug>(copilot-previous)')
+	vim.cmd [[
+  function! s:BlankUp() abort
+	let cmd = 'put!=repeat(nr2char(10), v:count1)|silent '']+'
+	return cmd
+  endfunction
 
-	vim.cmd[[highlight CopilotSuggestion guifg=#555555 ctermfg=8]]
+  	nmap ]<space> :<C-U>exe <SID>BlankUp()<CR>
+	]]
+
+	vim.cmd [[
+  function! s:BlankDown() abort
+	let cmd = 'put =repeat(nr2char(10), v:count1)|silent ''[-'
+	return cmd
+  endfunction
+
+  	nmap [<space> :<C-U>exe <SID>BlankDown()<CR>
+	]]
+
+	-- vim.cmd [[nnoremap <silent> <Plug>(unimpaired-blank-up)   :<C-U>exe <SID>BlankUp()<CR>]]
+	-- vim.cmd [[nnoremap <silent> <Plug>(unimpaired-blank-down) :<C-U>exe <SID>BlankDown()<CR> ]]
+	-- vim.cmd [[nnoremap <silent> <Plug>unimpairedBlankUp   :<C-U>exe <SID>BlankUp()<CR>]]
+	-- vim.cmd [[nnoremap <silent> <Plug>unimpairedBlankDown :<C-U>exe <SID>BlankDown()<CR>]]
+	-- vim.keymap.set('i', '<C-,>', '<Plug>(copilot-next)')
+	-- vim.keymap.set('i', '<C-.>', '<Plug>(copilot-previous)')
+
+	vim.cmd [[highlight CopilotSuggestion guifg=#555555 ctermfg=8]]
 	-- vim.cmd [[nnoremap <Leader>o o<Esc>]]
 	-- vim.cmd [[nnoremap <Leader>O O<Esc>]]
 

@@ -607,9 +607,6 @@ lvim.plugins = {
 	{
 		"arkav/lualine-lsp-progress",
 	},
-	{
-		"tpope/vim-unimpaired"
-	}
 	-- Can not be placed into the config method of the plugins.
 	-- {
 	-- 	"zbirenbaum/copilot.lua",
