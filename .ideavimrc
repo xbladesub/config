@@ -8,6 +8,7 @@ nmap zj o<Esc>k
 nmap zk O<Esc>j
 
 set highlightedyank
+set incsearch
 
 " set ignorecase
 " set smartcase
